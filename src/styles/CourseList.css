@@ -1,0 +1,35 @@
+/* CourseList.css */
+.course-container {    
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;;
+    text-align: left; /* Align text to the left */
+    margin: 5% auto;
+  }
+  
+.course-container p {
+    margin: 5px 0;
+}
+
+.course-container button {
+    padding: 10px 20px;
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 auto; /* Center the buttons horizontally */
+    display: block; /* Ensure each button occupies a full line */    
+}
+
+.course-container button:hover {
+    background-color: #0056b3;
+}
+
+a {
+    text-decoration: none;
+}
+
+  

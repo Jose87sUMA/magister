@@ -1,0 +1,137 @@
+/* Course.css */
+.header-course {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.header-course button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.header-course button:hover {
+    background-color: #0056b3;
+}
+
+.course-details {
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.course-details h3 {
+    margin-bottom: 10px;
+}
+
+.course-details p {
+    margin-bottom: 15px;
+}
+
+.map {
+    margin-top: 20px;
+    text-align: center;
+    align-items: center;
+}
+
+.flags {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.flag {
+    width: 40px; /* Adjust the width of the flags */
+    height: 40px; /* Adjust the height of the flags */
+    border-radius: 30%;
+    cursor: pointer;
+    position: relative;
+    margin-top: 10px;
+}
+
+.flag:hover {
+    background-color: #c8c8c8;
+}
+
+.flag.completed {
+    border: solid green;
+}
+
+.flag.incomplete {
+    border: solid red;
+}
+
+.flag.completed .flag-icon {
+    color: green;
+}
+
+.flag.incomplete .flag-icon {
+    color: red;
+}
+
+.flag::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 60px; /* Adjust this value to control the position of the line start */
+    width: 120px; /* Adjust this value to control the length of the line */
+    height: 5px; /* Adjust this value to control the thickness of the line */
+    background-color: #ccc;
+    pointer-events: none; /* Disable pointer events on the line */
+}
+
+.flag:last-child::before {
+    display: none; /* Hide the line after the last flag */
+}
+
+.flag-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.popup {
+    position: absolute;
+    top: 100%; /* Position the popup below the flag */
+    left: 50%; /* Center the popup horizontally */
+    transform: translateX(-50%); /* Center the popup horizontally */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 300px;
+    display: none;
+    margin-top: 10px;
+}
+
+.flag.selected .popup {
+    display: block;
+}
+
+.popup h5 {
+    margin-top: 0;
+}
+
+.popup p {
+    margin-bottom: 10px;
+}
+
+.popup button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+}

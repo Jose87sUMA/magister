@@ -1,0 +1,98 @@
+/* Test.css */
+.form-test-container {
+    margin: 20px auto;
+    width: 50%;
+    margin-top: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.header-course {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.header-course button {
+    background-color: #007bff;
+    width: 100%;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.header-course button:hover {
+    background-color: #0056b3;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="radio"] {
+    display: none; /* Hide the default radio button */
+}
+
+/* Custom radio button style */
+.radio-custom {
+    display: none; /* Hide the default radio button */
+}
+
+/* Styling for the checked state */
+.radio-custom:checked + .radio-label::before {
+    content: ''; /* Unicode for a filled circle */
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    line-height: 20px;
+    text-align: center;
+    background-color: #007bff; /* Change color as needed */
+    color: #fff;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Hide default radio button and style its label */
+.radio-label {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Indicator for the selected state */
+.radio-label::before {
+    content: ''; /* Unicode for an empty circle */
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    line-height: 20px;
+    text-align: center;
+    background-color: #fff; /* Change color as needed */
+    color: #ccc;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.form-test-container button {
+    display: block;
+    width: 60%;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .form-test-container button:hover {
+    background-color: #0056b3;
+  }
