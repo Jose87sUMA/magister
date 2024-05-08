@@ -1,4 +1,3 @@
-// CourseList.js
 import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { useCourseContext } from '../CourseContext'; // Import the context hook
@@ -17,7 +16,17 @@ const CourseList = () => {
             <div>
               <p>Description: {course.description}</p>
               <p>Stages: {course.stages.length}</p>
-              <p>Completion: {course.completionPercentage}%</p>
+              <progress
+                style={{
+                  width: '100%',
+                  accentColor: `rgba(${200*(1-(Math.max(0,course.completionPercentage-50)/50))}, 
+                                     ${200*(Math.min(50,course.completionPercentage)/50)}, 
+                                     0, 
+                                     1)`,
+                }}
+                value={course.completionPercentage}
+                max="100"
+              />
             </div>
             <hr /> {/* Add a separator */}
           </div>
