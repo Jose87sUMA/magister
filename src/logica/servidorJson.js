@@ -64,3 +64,7 @@ const generateCoursePrompt = (topic, experience, intensity) => {
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
+
+module.exports = {
+    generateCourse
+};
