@@ -2,6 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const Groq = require("groq-sdk");
+
+/**
+ * Initialize Groq SDK with API key and browser settings
+ */
 const groq = new Groq({
     apiKey: "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",
     dangerouslyAllowBrowser: true
@@ -12,6 +16,11 @@ const port = 3030;
 
 app.use(bodyParser.json());
 
+/**
+ * POST endpoint for generating a course
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 app.post('/generar-curso', async (req, res) => {
     const { topic, experience, intensity } = req.body;
     if (!topic || !experience || !intensity) {
@@ -27,13 +36,25 @@ app.post('/generar-curso', async (req, res) => {
     }
 });
 
+
+/**
+ * Function to generate a course
+ * @param {string} topic - The topic of the course
+ * @param {string} experience - The experience level of the course
+ * @param {string} intensity - The intensity of the course
+ * @returns {Promise<string>} The generated course
+ */
 const generateCourse = async (topic, experience, intensity) => {
     const prompt = generateCoursePrompt(topic, experience, intensity);
     const chatCompletion = await getGroqChatCompletion(prompt);
     return chatCompletion;
 };
 
-
+/**
+ * Function to get chat completion from Groq
+ * @param {string} prompt - The prompt for the chat
+ * @returns {Promise<string>} The chat completion
+ */
 const getGroqChatCompletion = async (prompt) => {
     const chatCompletion = await groq.chat.completions.create({
         "messages": [
