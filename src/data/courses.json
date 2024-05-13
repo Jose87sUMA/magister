@@ -6,6 +6,7 @@
     "title": "Curso de Desarrollo de JavaScript para Principiantes",
     "description": "Este curso está diseñado para usuarios aficionados que desean comenzar a aprender JavaScript desde cero. Cubre conceptos fundamentales y progresa gradualmente hacia temas más avanzados.",
     "completionPercentage": 0,
+    "isPublic": true,
     "stages": [
       {
         "id": 1,
@@ -190,6 +191,7 @@
     "title": "Curso Avanzado de Programación en React",
     "description": "Este curso avanzado de programación en React está diseñado para desarrolladores experimentados que desean profundizar en los aspectos más complejos y avanzados de la creación de aplicaciones con React.",
     "completionPercentage": 0,
+    "isPublic": true,
     "stages": [
       {
         "id": 1,
@@ -374,6 +376,7 @@
     "title": "Maestría en la Elaboración de Galletas para Expertos",
     "description": "Este curso intensivo está diseñado para panaderos expertos que desean llevar sus habilidades en la elaboración de galletas al siguiente nivel. Desde dominar el arte de la preparación de la masa hasta perfeccionar el equilibrio de sabores y texturas, este curso te equipará con los conocimientos y técnicas necesarios para crear galletas excepcionales.",
     "completionPercentage": 0,
+    "isPublic": true,
     "stages": [
       {
         "id": 1,
@@ -558,6 +561,7 @@
     "title": "Introducción a la Física para Aficionados",
     "description": "Este curso te llevará a través de los conceptos básicos de la física de una manera relajada y accesible, perfecta para quienes están interesados en aprender sin presiones intensas.",
     "completionPercentage": 0,
+    "isPublic": true,
     "stages": [
       {
         "id": 1,
@@ -693,6 +697,7 @@
     "title": "Curso de Ciencias para Escuela Primaria",
     "description": "Este curso introductorio de ciencias está diseñado para estudiantes de primaria que deseen explorar conceptos básicos de ciencia de manera divertida y educativa. Desde el mundo natural hasta los fundamentos de la física y la química, este curso proporciona una introducción completa a través de actividades interactivas y experiencias prácticas.",
     "completionPercentage": 0,
+    "isPublic": true,
     "stages": [
       {
         "id": 1,

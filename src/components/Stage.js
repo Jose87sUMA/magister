@@ -1,7 +1,8 @@
 // Stage.js
-import React from 'react';
-import { courses } from '../data/courses';
-import { Link, useLoaderData } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import { Link, useLoaderData, useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebase';
 import { useCourseContext } from '../CourseContext'; // Import the context hook
 import '../styles/Stage.css';
 
@@ -10,6 +11,19 @@ export async function loader({ params }) {
 }
 
 const Stage = () => {
+
+  const navigate = useNavigate();
+  useEffect(()=>{
+      onAuthStateChanged(auth, (user) => {
+          if (user) {
+
+          } else {
+            navigate("/login")
+          }
+        });
+      
+  }, [])
+
   const { courseId, stageId } = useLoaderData();
   const { courses } = useCourseContext(); // Use the context hook to get the courses data
 

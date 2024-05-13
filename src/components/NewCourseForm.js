@@ -1,10 +1,25 @@
 // NewCourseForm.js
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate} from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebase';
 import { useCourseContext } from '../CourseContext'; // Import the context hook
 import '../styles/NewCourseForm.css';
 
 const NewCourseForm = () => {
+  
+  const navigate = useNavigate();
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+
+        } else {
+          navigate("/login")
+        }
+      });
+    
+}, [])
+
   const [formData, setFormData] = useState({
     topic: '',
     experience: 'beginner',
