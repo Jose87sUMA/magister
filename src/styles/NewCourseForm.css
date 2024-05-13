@@ -6,6 +6,7 @@
 }
 
 .header-form button {
+  max-width: 20%;
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -21,7 +22,7 @@
 
  .form-container {
     max-width: 400px;
-    margin: 5% auto;
+    margin: 1% auto;
   }
   
   .form-container label {

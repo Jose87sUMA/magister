@@ -22,10 +22,12 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
+    margin-right: 1%;
   }
   
   .search-form button {
     padding: 10px 20px;
+    max-width: 20%;
     background-color: #007bff;
     color: #fff;
     border: none;
