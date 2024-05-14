@@ -17,18 +17,18 @@ const Test = () => {
       });
   }, [])
 
-  const { courseId, stageId } = useLoaderData();
-  const { courses, updateStage,  } = useCourseContext(); // Use the context hook
+  const { courseId: courseID, stageID } = useLoaderData();
+  const { courses: enrolledCourses, updateStage,  } = useCourseContext(); // Use the context hook
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   // Find the course data from the courses array using courseId
-  const course = courses.find(c => c.id == courseId);
+  const course = enrolledCourses.find(c => c.courseID == courseID);
 
   if (!course) {
     return <div>Course not found</div>; // Render a message if the course is not found
   }
 
-  const stage = course.stages.find(s => s.id == stageId);
+  const stage = course.courseJSON.stages.find(s => s.id == stageID);
 
   if (!stage) {
     return <div>Stage not found</div>; // Render a message if the course is not found
@@ -71,7 +71,7 @@ const Test = () => {
   if (isSubmitted) {
     // Defer navigation after the component has finished rendering
     setTimeout(() => {
-      navigate(`/courses/${course.id}`);
+      navigate(`/courses/${course.courseID}`);
     }, 0);  
     return null;
   }
@@ -80,7 +80,7 @@ const Test = () => {
     <div>
       <form className='form-test-container'>
       <div className="header-course">
-        <Link to={`/courses/${course.id}`}><button>Go Back</button></Link>
+        <Link to={`/courses/${course.courseID}`}><button>Go Back</button></Link>
       </div>
       <h3>{stage.title}</h3>
         {questions.map((question, index) => (

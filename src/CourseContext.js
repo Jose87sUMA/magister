@@ -1,22 +1,74 @@
 // CourseContext.js
 import React, { createContext, useState, useContext, useEffect} from 'react';
-import initialCourses from './data/courses.json';
+import { collection, getDocs, where, query, updateDoc, doc } from "firebase/firestore";
+import {db, auth} from './firebase';
+import { set } from 'firebase/database';
 
 // Create the context
 const CourseContext = createContext();
 
 // Create a provider component
 export const CourseProvider = ({ children }) => {
-    const [courses, setCourses] = useState(() => {
-      // Get courses from local storage, or use default if not present
-      const storedCourses = localStorage.getItem('courses');
-      return storedCourses ? JSON.parse(storedCourses) : initialCourses;
+
+  /*
+    On firestore db:
+    courses: collection of courses. It has 3 fields: JSON string of course, courseID and userID
+    enrolledCourses: collection of enrolled courses. It has two fields: courseID and userID
+  */
+
+  //get courses from db from course ids of enrolled courses
+  const fetchEnrolledCourses = async () => {
+    // Get courses from local storage, or use default if not present
+    const querySnapshot = await getDocs(query(collection(db, "enrolledCourses"), where("userID", "==", auth.currentUser.uid)))
+    if (querySnapshot.empty) {
+      setEnrolledCourses([]);
+      return;
+    }
+    const enrolledCoursesTemp = querySnapshot.docs.map((doc) => ({...doc.data(), courseJSON: JSON.parse(doc.data().courseString), courseID: doc.id}));       
+    setEnrolledCourses(enrolledCoursesTemp);
+  }
+
+  const fetchCreatedCourses = async () => {
+    // Get courses from local storage, or use default if not present
+    const querySnapshot = await getDocs(query(collection(db, "courses"), where("userID", "==", auth.currentUser.uid)))
+    if (querySnapshot.empty) {
+      setEnrolledCourses([]);
+      return;
+    }
+    const createdCoursesTemp = querySnapshot.docs.map((doc) => ({...doc.data(), courseJSON: JSON.parse(doc.data().courseString), courseID: doc.id}));       
+    setCreatedCourses(createdCoursesTemp);
+  }
+
+  const fetchAllCourses = async () => {
+
+    // Get courses from local storage, or use default if not present
+    const querySnapshot = await getDocs(collection(db, "courses"))
+    if (querySnapshot.empty) {
+      setAllCourses([]);
+      return;
+    }
+    const allCoursesTemp = querySnapshot.docs.map((doc) => ({...doc.data(), courseJSON: JSON.parse(doc.data().courseString), courseID: doc.id}));       
+    setAllCourses(allCoursesTemp);
+  };
+
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [createdCourses, setCreatedCourses] = useState([]);
+  const [allCourses, setAllCourses] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        fetchEnrolledCourses();
+        fetchCreatedCourses();
+      } else {
+        setEnrolledCourses([]);
+        setCreatedCourses([]);
+      }
     });
-  
-    // Update local storage when courses state changes
-    useEffect(() => {
-      localStorage.setItem('courses', JSON.stringify(courses));
-    }, [courses]);
+
+    return () => unsubscribe();
+  }, []);
+
 
   // Update the completion percentage for a course
   const updateCompletionPercentage = (course) => {
@@ -34,36 +86,63 @@ export const CourseProvider = ({ children }) => {
     return stage
   };
 
-  const updateCourse = (course) => {
-    course = updateCompletionPercentage(course);
-    setCourses(prevCourses => prevCourses.map(c => {
-      if (c.id === course.id) {
+  const updateEnrolledCourse = (course) => {
+    course.courseJSON = updateCompletionPercentage(course.courseJSON);
+    setEnrolledCourses(prevCourses => prevCourses.map(c => {
+      if (c.courseID === course.courseID) {
         return course;
       }
       return c;
     }));
   };
 
+  const updateCreatedCourse = async (course) => {
+    setCreatedCourses(prevCourses => prevCourses.map(c => {
+      if (c.courseID === course.courseID) {
+        return course;
+      }
+      return c;
+    }));
+    //update in firebase
+    await updateDoc(doc(db, "courses", course.courseID), {
+      courseString: JSON.stringify(course.courseJSON)
+    });
+  };
+
   const updateStage = (course, stage) => {
     stage = completeStageIfScoreIs50(stage);
-    // reusing updateCourse function 
-    const updatedCourse = {
-      ...course,
-      stages: course.stages.map(s => {
+    // reusing updateEnrolledCourse function 
+    course.courseJSON.stages = 
+      course.courseJSON.stages.map(s => {
         if (s.id === stage.id) {
           return stage;
         }
         return s;
       })
-    };
-    updateCourse(updatedCourse);
+    
+    updateEnrolledCourse(course);
+  };
+
+  const createCourse = (course) => {
+    course.courseJSON = JSON.parse(course.courseString);
+    setCreatedCourses(prevCourses => [...prevCourses, course]);
+  };
+
+  const addEnrolledCourse = (course) => {
+    setEnrolledCourses(prevCourses => [...prevCourses, course]);
   };
 
   // Wrap the functions to be passed down through context
   const contextValue = {
-    courses,
-    updateCourse,
-    updateStage
+    enrolledCourses: enrolledCourses,
+    createdCourses: createdCourses,
+    updateEnrolledCourse,
+    updateCreatedCourse,
+    updateStage,
+    createCourse,
+    allCourses,
+    fetchAllCourses,
+    addEnrolledCourse
   };
 
   return (

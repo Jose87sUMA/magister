@@ -6,7 +6,7 @@ import Header from './components/Header';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import CourseList from './components/CourseList';
-import Course, {loader as courseLoaderById} from './components/Course';
+import CourseCreated, {loader as courseLoaderById} from './components/Course';
 import Stage, {loader as stageLoaderById} from './components/Stage';
 import Test from './components/Test';
 import NewCourseForm from './components/NewCourseForm';
@@ -42,17 +42,17 @@ const router = createBrowserRouter(
       ),
     },
     {
-      path: '/courses/:courseId',
+      path: '/courses/:courseID',
       element: (
         <>
           <Header />        
-          <Course />,
+          <CourseCreated />,
         </>
       ),
       loader: courseLoaderById
     },
     {
-      path: '/courses/:courseId/:stageId',
+      path: '/courses/:courseID/:stageID',
       element: (
         <>
           <Header />        
@@ -62,7 +62,7 @@ const router = createBrowserRouter(
       loader: stageLoaderById
     },
     {
-      path: '/courses/:courseId/:stageId/test',
+      path: '/courses/:courseID/:stageID/test',
       element: (
         <>
           <Header />        

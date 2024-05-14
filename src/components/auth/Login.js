@@ -56,7 +56,7 @@ const Login = () => {
             </div>
             <button type="submit" onClick={onLogin}>Login</button>
         </form>
-        <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
+        <p className='form-p'>Don't have an account? <Link to="/signup">Sign Up</Link></p>
         </div>
     );
 };

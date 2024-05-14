@@ -3,7 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate} from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
-import { useCourseContext } from '../CourseContext'; // Import the context hook
+import { collection, addDoc, updateDoc } from 'firebase/firestore';
+import { useCourseContext } from '../CourseContext';
+import { db } from '../firebase';
+import { generateCourse } from '../IA/llamaAPI';
 import '../styles/NewCourseForm.css';
 
 const NewCourseForm = () => {
@@ -17,8 +20,25 @@ const NewCourseForm = () => {
           navigate("/login")
         }
       });
-    
-}, [])
+  } , [])
+
+  const user = auth.currentUser;
+  const { createCourse } = useCourseContext();
+
+  const storeCourse = async (courseString) => {  
+    try {
+        const docRef = await addDoc(collection(db, "courses"), {
+          courseString: courseString,    
+          userID: user.uid,
+        });
+        //update entry on db with the id of the course
+        console.log("Document written with ID: ", docRef.id);
+        createCourse({courseString: courseString, courseID: docRef.id, userID: user.uid})
+
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  }
 
   const [formData, setFormData] = useState({
     topic: '',
@@ -26,30 +46,14 @@ const NewCourseForm = () => {
     intensity: 'relaxed',
   });
 
-  const { courses, updateCourse } = useCourseContext();
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = e => {
-    let course;
-    let id;
-    if(formData.topic === 'CookieBaking') {
-      id = 2;
-    }
-    else if(formData.topic === 'Physics') {
-      id = 3;
-    }
-    else if(formData.topic === 'PrimarySchoolScience') {
-      id = 4;
-    }
-    else {
-      id = 1;
-    }
-    course = courses.find(c => c.id == id);
-    course.visible = true;
-    updateCourse(course);
+    
+    generateCourse(formData.topic, formData.experience, formData.intensity).then((course) => storeCourse(course));
     
   };
 
@@ -63,12 +67,7 @@ const NewCourseForm = () => {
         <label>
           Topic:
           {/* <input type="text" name="topic" value={formData.topic} onChange={handleChange} />  */}
-          <select name="topic" value={formData.topic} onChange={handleChange}>
-            <option value="React">Programación en React</option>
-            <option value="CookieBaking">Hornear Galletas</option>
-            <option value="Physics">Física</option>
-            <option value="PrimarySchoolScience">Ciencia para estudiantes de Primaria</option>
-          </select> 
+          <input name="topic" value={formData.topic} onChange={handleChange} />
         </label>
         <label>
           Experience:

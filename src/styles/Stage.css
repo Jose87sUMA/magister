@@ -9,3 +9,41 @@
     margin: 0 auto; /* Center the buttons horizontally */
     display: block; /* Ensure each button occupies a full line */
 }
+
+.course-details .take-test-button-disabled {
+    padding: 10px 20px;
+    width: 100%;
+    background-color: #878787;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: not-allowed;
+    margin: 0 auto; /* Center the buttons horizontally */
+    display: block; /* Ensure each button occupies a full line */
+}
+
+.course-details .error-text {
+    color: red;
+    font-size: 18px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.stage-header button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    width: 20%;
+    border-radius: 3px;
+    padding: 5px 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.stage-header a button{
+    width: 20%
+}
+
+.stage-header button:hover {
+    background-color: #0056b3;
+}

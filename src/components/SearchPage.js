@@ -22,8 +22,12 @@ const SearchPage = () => {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const { courses } = useCourseContext(); // Use the context hook to get the public courses data
-  const publicCourses = courses.filter(course => course.isPublic);
+  const { allCourses, fetchAllCourses } = useCourseContext(); // Use the context hook to get the public courses data
+  if (allCourses.length === 0) {
+    fetchAllCourses();
+  }
+
+  const publicCourses = allCourses.filter(course => course.courseJSON.isPublic);
 
   // Function to handle search input change
   const handleSearchInputChange = (event) => {
@@ -35,9 +39,8 @@ const SearchPage = () => {
     event.preventDefault();
     // Perform search based on searchQuery (e.g., fetch data from server)
     // For now, just filter predefined public courses based on searchQuery
-    console.log(courses)
     const results = publicCourses.filter(course =>
-      course.title.toLowerCase().includes(searchQuery.toLowerCase())
+      course.courseJSON.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setSearchResults(results);
   };
@@ -58,9 +61,9 @@ const SearchPage = () => {
       <div className="search-results">
         {searchResults.map((course, index) => (
           <div className="course" key={index}>
-            <h3>{course.title}</h3>
-            <p>{course.description}</p>
-            <Link to={`/courses/${course.id}`} className="course-link">View Course</Link>
+            <h3>{course.courseJSON.title}</h3>
+            <p>{course.courseJSON.description}</p>
+            <Link to={`/courses/${course.courseID}`} className="course-link">View Course</Link>
           </div>
         ))}
       </div>

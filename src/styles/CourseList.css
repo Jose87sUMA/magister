@@ -1,5 +1,11 @@
 /* CourseList.css */
 
+.course-list-page {
+    display: flex;
+    max-width: 80%;
+    margin: 0 auto; /* Center the items horizontally */
+}
+
 .course-container {    
     width: 30%;
     padding: 10px;
@@ -9,10 +15,17 @@
     margin: 5% auto;
   }
   
-.course-container p {
-    margin: 5px 0;
+.course-list-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
 }
 
+.course-item {
+margin-bottom: 20px; /* Add some margin between each course item */
+}
+
+  
 .course-container button {
     padding: 10px 20px;
     width: 100%;
