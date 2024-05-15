@@ -11,7 +11,6 @@ export async function loader({ params }) {
 }
 
 const Stage = () => {
-
   const navigate = useNavigate();
   useEffect(()=>{
       onAuthStateChanged(auth, (user) => {
@@ -21,23 +20,19 @@ const Stage = () => {
             navigate("/login")
           }
         });
-      
-  }, [])
+  }, [navigate])
 
   const { courseID, stageID } = useLoaderData();
-  const { allCourses, enrolledCourses } = useCourseContext(); // Use the context hook to get the courses data
-  console.log(enrolledCourses)
+  const { enrolledCourses, allCourses, fetchAllCourses } = useCourseContext(); // Use the context hook to get the courses data
 
   // Find the course data from the courses array using courseId
   const [enrolled, setEnrolled] = useState(true);
   const [course, setCourse] = useState(null);
   const [stage, setStage] = useState(null);
-  
+
   useEffect(() => {
     // Check if the current course is in the enrolled courses
-    
     let enrolledCourse = enrolledCourses.find(c => c.originalCourseID == courseID);
-    console.log(enrolledCourse);
 
     if (!enrolledCourse) {
       setEnrolled(false);
@@ -47,14 +42,22 @@ const Stage = () => {
 
     if (!allCourse) {
     }
-
-    setCourse(enrolledCourse ? enrolledCourse : allCourse);
+    const course = enrolledCourse ? enrolledCourse : allCourse;
+    if (!course) {
+      return;
+    }
+    setCourse(course);
     setStage(course.courseJSON.stages.find(s => s.id == stageID));
 
-  }, []);
+  }, [enrolledCourses, course, allCourses, stageID]);
+
+  if (!allCourses.length) {
+    fetchAllCourses();
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: "10%"}}>Loading...</div>;
+  }
 
   if (!stage) {
-    return <div>Stage not found</div>; // Render a message if the course is not found
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: "10%"}}>Stage not found</div>; // Render a message if the course is not found
   }
 
   return (

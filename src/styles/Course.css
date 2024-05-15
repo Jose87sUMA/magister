@@ -57,6 +57,10 @@
     cursor: pointer;
 }
 
+.enroll-button:hover {
+    background-color: #0056b3;
+}
+
 .map {
     margin-top: 20px;
     text-align: center;

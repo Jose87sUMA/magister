@@ -24,11 +24,44 @@ const Course = () => {
             navigate("/login")
           }
         });
-  }, [])
+  }, [navigate])
 
   const [selectedStage, setSelectedStage] = useState(null);
   const { courseID } = useLoaderData();
-  const { createdCourses, enrolledCourses, updateCreatedCourse, addEnrolledCourse } = useCourseContext(); // Use the context hook to get the courses data
+  const { createdCourses, enrolledCourses, allCourses, fetchAllCourses, updateCreatedCourse, addEnrolledCourse } = useCourseContext(); // Use the context hook to get the courses data
+
+  // Find the course data from the courses array using courseId
+  const creator = createdCourses.find(c => c.courseID == courseID) !== undefined;
+  const [enrolled, setEnrolled] = useState(true);
+  const [course, setCourse] = useState(null);
+  
+  useEffect(() => {
+
+    let enrolledCourse = enrolledCourses.find(c => c.originalCourseID == courseID);
+
+    if (!enrolledCourse) {
+      setEnrolled(false);
+    }
+
+  }, [enrolledCourses, courseID]);
+
+
+  useEffect(() => {
+
+    if (enrolled) {
+      let course = enrolledCourses.find(c => c.originalCourseID == courseID);
+      setCourse(course);
+    }
+    else if (creator){
+      let course = createdCourses.find(c => c.courseID == courseID);
+      setCourse(course);
+    }
+    else {
+      let course = allCourses.find(c => c.courseID == courseID);
+      setCourse(course);
+    }
+
+  }, [enrolledCourses, createdCourses, course, enrolled]);
 
   const handleStageClick = (index) => {
     setSelectedStage(index);
@@ -63,32 +96,15 @@ const Course = () => {
     }
   }
 
-  // Find the course data from the courses array using courseId
-  const [creator, setCreator] = useState(true);
-  const [enrolled, setEnrolled] = useState(true);
-  const [course, setCourse] = useState(null);
-  
-  useEffect(() => {
-    // Check if the current course is in the enrolled courses
-    let creatorCourse = createdCourses.find(c => c.courseID == courseID);
-
-    if (!creatorCourse) {
-      setCreator(false);
-    }
-
-    let enrolledCourse = enrolledCourses.find(c => c.originalCourseID == courseID);
-
-    if (!enrolledCourse) {
-      setEnrolled(false);
-    }
-
-    setCourse(enrolledCourse ? enrolledCourse : creatorCourse);
-
-  }, [course]);
+  if (!course && allCourses.length === 0) {
+    fetchAllCourses();
+    return <div>Loading...</div>;
+  }
 
   if (!course) {
     return <div>Course not found</div>; // Render a message if the course is not found
   }
+
 
   return (
     <div className='course-details'>
@@ -108,7 +124,7 @@ const Course = () => {
         enrolled ? (
           <p>{`Completiton Percentage: ${course.courseJSON.completionPercentage}%`}</p>
         ) : (
-          <button onClick={enrollToCourse}>Enroll</button>
+          <button className='enroll-button' onClick={enrollToCourse}>Enroll</button>
         )
       }
      
@@ -119,7 +135,7 @@ const Course = () => {
             <div
               key={index}
               className={`flag ${selectedStage === index ? 'selected' : ''} ${stage.completed ? 'completed' : 'incomplete'}`}
-              onMouseEnter ={() => {console.log(stage.completed);handleStageClick(index)}}
+              onMouseEnter ={() => {handleStageClick(index)}}
               onMouseLeave={handleClosePopup}
               onClick={() => navigate(`/courses/${enrolled ? course.originalCourseID : course.courseID}/${stage.id}`)}
             >

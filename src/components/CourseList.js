@@ -18,6 +18,11 @@ const CourseList = () => {
 
   const { enrolledCourses, createdCourses } = useCourseContext();
 
+  useEffect(() => {
+    console.log(enrolledCourses);
+    console.log(createdCourses); 
+  },[enrolledCourses, createdCourses]);
+
   return (
     <div className='course-list-page'>
       {/* Enrolled Courses */}

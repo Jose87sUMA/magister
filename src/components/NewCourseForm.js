@@ -24,6 +24,12 @@ const NewCourseForm = () => {
 
   const user = auth.currentUser;
   const { createCourse } = useCourseContext();
+  const [loading, setLoading] = useState(false); 
+  const [formData, setFormData] = useState({
+    topic: '',
+    experience: 'beginner',
+    intensity: 'relaxed',
+  });
 
   const storeCourse = async (courseString) => {  
     try {
@@ -40,54 +46,64 @@ const NewCourseForm = () => {
     }
   }
 
-  const [formData, setFormData] = useState({
-    topic: '',
-    experience: 'beginner',
-    intensity: 'relaxed',
-  });
-
-
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = e => {
-    
-    generateCourse(formData.topic, formData.experience, formData.intensity).then((course) => storeCourse(course));
+  const handleSubmit = async e => {
+    setLoading(true); 
+    try {
+      const course = await generateCourse(formData.topic, formData.experience, formData.intensity);
+      await storeCourse(course);
+      navigate('/');
+    } catch (error) {
+      console.error("Error generating or storing course: ", error);
+    } finally {
+      setLoading(false); 
+    }
     
   };
 
 
   return (
     <div>
-      <div className="header-form">
-        <Link to="/"><button>Go Back</button></Link> 
-      </div>
-      <form className='form-container' onSubmit={handleSubmit}>
-        <label>
-          Topic:
-          {/* <input type="text" name="topic" value={formData.topic} onChange={handleChange} />  */}
-          <input name="topic" value={formData.topic} onChange={handleChange} />
-        </label>
-        <label>
-          Experience:
-          <select name="experience" value={formData.experience} onChange={handleChange}>
-            <option value="beginner">Beginner</option>
-            <option value="amateur">Amateur</option>
-            <option value="experienced">Experienced</option>
-            <option value="expert">Expert</option>
-          </select>      
-        </label>
-        <label>
-          Intensity:
-          <select name="intensity" value={formData.intensity} onChange={handleChange}>
-            <option value="relaxed">Relaxed</option>
-            <option value="standard">Standard</option>
-            <option value="intensive">Intensive</option>
-          </select>
-        </label>
-        <Link to="/"><button type="submit" onClick={handleSubmit}>Generate Course</button></Link>
-      </form>
+      
+      {loading ? ( // Render loading screen if loading state is true
+        <div className="loading-screen">
+          <div className="loading-animation"></div>
+          <p>Creating course...</p>
+        </div>
+      ) : (
+        <div>
+          <div className="header-form">
+            <Link to="/"><button>Go Back</button></Link> 
+          </div>
+          <form className='form-container' onSubmit={handleSubmit}>
+            <label>
+              Topic:
+              <input name="topic" value={formData.topic} onChange={handleChange} />
+            </label>
+            <label>
+              Experience:
+              <select name="experience" value={formData.experience} onChange={handleChange}>
+                <option value="beginner">Beginner</option>
+                <option value="amateur">Amateur</option>
+                <option value="experienced">Experienced</option>
+                <option value="expert">Expert</option>
+              </select>
+            </label>
+            <label>
+              Intensity:
+              <select name="intensity" value={formData.intensity} onChange={handleChange}>
+                <option value="relaxed">Relaxed</option>
+                <option value="standard">Standard</option>
+                <option value="intensive">Intensive</option>
+              </select>
+            </label>
+            <button type="submit">Generate Course</button>
+          </form>
+        </div>
+      )}
     </div>
 
   );

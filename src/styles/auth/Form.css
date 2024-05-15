@@ -1,9 +1,10 @@
 /* Form.css */
-.form-container {
+.auth-form-container {
     max-width: 400px;
     padding: 40px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin: auto;
     margin-top: 5%;
   }
   
@@ -19,7 +20,7 @@
   
   .form-group input {
     padding: 10px 20px;
-    max-width: 95%;
+    width: 87%;
 
   }
   
@@ -48,5 +49,12 @@
   
   p a:hover {
     text-decoration: underline;
+  }
+
+  .auth-form-container .error-message {
+    color: red;
+    font-size: 18px;
+    margin-top: 10px;
+    text-align: center;
   }
   

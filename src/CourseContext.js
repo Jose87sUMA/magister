@@ -10,10 +10,28 @@ const CourseContext = createContext();
 // Create a provider component
 export const CourseProvider = ({ children }) => {
 
+  
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [createdCourses, setCreatedCourses] = useState([]);
+  const [allCourses, setAllCourses] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        fetchEnrolledCourses();
+        fetchCreatedCourses();
+      } else {
+        setEnrolledCourses([]);
+        setCreatedCourses([]);
+      }
+    });
+    return () => unsubscribe();
+  }, [auth.currentUser]);
+
   /*
     On firestore db:
-    courses: collection of courses. It has 3 fields: JSON string of course, courseID and userID
-    enrolledCourses: collection of enrolled courses. It has two fields: courseID and userID
+    courses: collection of courses. It has 3 fields: JSON string of course and userID
+    enrolledCourses: collection of enrolled courses. It has 3 fields: courseID, originalCourseID and userID
   */
 
   //get courses from db from course ids of enrolled courses
@@ -51,25 +69,6 @@ export const CourseProvider = ({ children }) => {
     setAllCourses(allCoursesTemp);
   };
 
-  const [enrolledCourses, setEnrolledCourses] = useState([]);
-  const [createdCourses, setCreatedCourses] = useState([]);
-  const [allCourses, setAllCourses] = useState([]);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        fetchEnrolledCourses();
-        fetchCreatedCourses();
-      } else {
-        setEnrolledCourses([]);
-        setCreatedCourses([]);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-
   // Update the completion percentage for a course
   const updateCompletionPercentage = (course) => {
     const completedStages = course.stages.filter(stage => stage.completed);
@@ -86,7 +85,7 @@ export const CourseProvider = ({ children }) => {
     return stage
   };
 
-  const updateEnrolledCourse = (course) => {
+  const updateEnrolledCourse = async (course) => {
     course.courseJSON = updateCompletionPercentage(course.courseJSON);
     setEnrolledCourses(prevCourses => prevCourses.map(c => {
       if (c.courseID === course.courseID) {
@@ -94,6 +93,10 @@ export const CourseProvider = ({ children }) => {
       }
       return c;
     }));
+    //update in firebase
+    await updateDoc(doc(db, "enrolledCourses", course.courseID), {
+      courseString: JSON.stringify(course.courseJSON)
+    });
   };
 
   const updateCreatedCourse = async (course) => {
@@ -126,6 +129,7 @@ export const CourseProvider = ({ children }) => {
   const createCourse = (course) => {
     course.courseJSON = JSON.parse(course.courseString);
     setCreatedCourses(prevCourses => [...prevCourses, course]);
+    setAllCourses(prevCourses => [...prevCourses, course]);
   };
 
   const addEnrolledCourse = (course) => {
@@ -145,6 +149,9 @@ export const CourseProvider = ({ children }) => {
     addEnrolledCourse
   };
 
+  console.log(enrolledCourses);
+  console.log(createdCourses);
+  console.log(auth.currentUser);
   return (
     <CourseContext.Provider value={contextValue}>
       {children}

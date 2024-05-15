@@ -10,7 +10,8 @@ const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-       
+    const [errorMessage, setErrorMessage] = useState('');
+
     const onLogin = (e) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
@@ -24,12 +25,13 @@ const Login = () => {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log(errorCode, errorMessage)
+            setErrorMessage(errorMessage);
         });
        
     }
 
     return (
-        <div className="form-container">
+        <div className="auth-form-container">
         <h2>Login</h2>
         <form>
             <div className="form-group">
@@ -54,6 +56,7 @@ const Login = () => {
                 onChange={(e)=>setPassword(e.target.value)}
             />
             </div>
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
             <button type="submit" onClick={onLogin}>Login</button>
         </form>
         <p className='form-p'>Don't have an account? <Link to="/signup">Sign Up</Link></p>

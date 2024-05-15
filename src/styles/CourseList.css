@@ -13,6 +13,7 @@
     border-radius: 5px;;
     text-align: left; /* Align text to the left */
     margin: 5% auto;
+    height: fit-content;
   }
   
 .course-list-header {
