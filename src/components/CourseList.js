@@ -38,12 +38,15 @@ const CourseList = () => {
           {enrolledCourses.map((course, index) => (
             course.courseJSON.visible && (
               <div key={index} className='course-item'>
-                <Link to={`/courses/${course.originalCourseID}`}>
-                  <button className='course-link'>{course.courseJSON.title}</button>
-                </Link>
+                <p className='course-title'>{course.courseJSON.title}</p>
                 <div>
                   <p>{course.courseJSON.description}</p>
-                  <p>Stages: {course.courseJSON.stages.length}</p>
+                  <div className='course-item-footer'>
+                    <p>Stages: {course.courseJSON.stages.length}</p>
+                    <Link to={`/courses/${course.originalCourseID}`}>
+                      <button button className='course-link'>Access</button>
+                    </Link>
+                  </div>
                   <progress
                     style={{
                       width: '100%',
@@ -61,6 +64,7 @@ const CourseList = () => {
                     value={course.courseJSON.completionPercentage}
                     max='100'
                   />
+                  <hr />
                 </div>
               </div>
             )
@@ -81,12 +85,15 @@ const CourseList = () => {
           {createdCourses.map((course, index) => (
             course.courseJSON.visible && (
               <div key={index} className='course-item'>
-                <Link to={`/courses/${course.courseID}`}>
-                  <button className='course-link'>{course.courseJSON.title}</button>
-                </Link>
+                <p className='course-title'>{course.courseJSON.title}</p>
                 <div>
                   <p>{course.courseJSON.description}</p>
-                  <p>Stages: {course.courseJSON.stages.length}</p>
+                  <div className='course-item-footer'>
+                    <p>Stages: {course.courseJSON.stages.length}</p>
+                    <Link to={`/courses/${course.courseID}`}>
+                      <button button className='course-link'>Access</button>
+                    </Link>
+                  </div>
                 </div>
                 <hr />
               </div>
