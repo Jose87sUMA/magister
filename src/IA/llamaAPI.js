@@ -137,7 +137,7 @@ const getGroqChatCompletion = async (prompt) => {
         messages: [
             {
                 role: "system",
-                content: `You are a course creator. \n'The JSON object of the course you create must use the schema: ${jsonSchema}. Make the course have 5 stages. The amount of characters on the "content" of each stage must be as large as possible and not a synopsis or summary of the stage. Do not generate anything outside the schema`
+                content: `You are a course creator. \n'The JSON object of the course you create must use the schema: ${jsonSchema}. Make the course have 5 stages, each stage with 5 questions about the content. The amount of characters on the "content" of each stage must be as large as possible and not a synopsis or summary of the stage. Do not generate anything outside the schema`
             },
             {
                 "role": "user",
@@ -146,7 +146,7 @@ const getGroqChatCompletion = async (prompt) => {
         ],
         "model": "llama3-70b-8192",
         "temperature": 1,
-        "max_tokens": 4520,
+        "max_tokens": 50000,
         "top_p": 1,
         "stream": false,
         "stop": null,

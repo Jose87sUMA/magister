@@ -30,7 +30,7 @@ const CourseList = () => {
         <div className='course-list'>
           <div className='course-list-header'>
             <h3>Tus cursos inscritos</h3>
-            <Link to='/search-courses'>
+            <Link to='/search-courses' aria-label='search course to enroll'>
               <FaPlus className='plus-icon' />
             </Link>
           </div>
@@ -77,7 +77,7 @@ const CourseList = () => {
         <div className='course-list'>
           <div className='course-list-header'>
             <h3>Tus cursos creados</h3>
-            <Link to='/new-course'>
+            <Link to='/new-course' aria-label='create course'>
               <FaPlus className='plus-icon' />
             </Link>
           </div>
