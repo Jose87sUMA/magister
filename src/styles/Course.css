@@ -83,21 +83,6 @@
     margin-top: 10px;
 }
 
-/*.flag.completed {*/
-/*    border: solid green;*/
-/*}*/
-
-.flag.incomplete {
-    border: solid red;
-}
-
-/*.flag.completed .flag-icon {*/
-/*    color: green;*/
-/*}*/
-
-.flag.incomplete .flag-icon {
-    color: red;
-}
 
 /*.flag::before {*/
 /*    content: "";*/
@@ -110,11 +95,6 @@
 /*    pointer-events: none; !* Disable pointer events on the line *!*/
 /*}*/
 
-
-.flag:last-child::before {
-    display: none; /* Hide the line after the last flag */
-}
-
 .flag-icon {
     position: absolute;
     top: 50%;
@@ -122,39 +102,3 @@
     transform: translate(-50%, -50%);
 }
 
-.popup {
-    position: absolute;
-    top: 100%; /* Position the popup below the flag */
-    left: 50%; /* Center the popup horizontally */
-    transform: translateX(-50%); /* Center the popup horizontally */
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    width: 300px;
-    display: none;
-    margin-top: 10px;
-}
-
-.flag.selected .popup {
-    display: block;
-}
-
-.popup h5 {
-    margin-top: 0;
-}
-
-.popup p {
-    margin-bottom: 10px;
-}
-
-.popup button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    padding: 5px 10px;
-    cursor: pointer;
-}

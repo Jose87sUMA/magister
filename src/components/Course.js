@@ -140,7 +140,7 @@ const Course = () => {
                 display: 'flex',
                 flexDirection: 'row',
                 marginBottom: '10px',
-                justifyContent: 'start',
+                justifyContent: 'center',
               }}>
                 <div
                   key={index}
@@ -166,8 +166,8 @@ const Course = () => {
                     }}
                   />
                 </div>
-                <div style={{display: 'flex', flexDirection: 'row', flexWrap:"wrap"}}>
-                <div style={{display: 'flex', flexDirection: 'column', textAlign: 'left', minWidth: "150px", width:"70%", marginLeft: `10px`}}>
+                <div style={{display: 'flex', flexDirection: 'row', flexWrap:"wrap", width: "100%", justifyContent: "space-evenly"}}>
+                <div style={{display: 'flex', flexDirection: 'column', textAlign: 'left', minWidth: "150px",maxWidth:"700px", marginLeft: `10px`}}>
                   <h3 style={{}}>{stage.title}</h3>
                   <p style={{marginTop: '0px'
                   }}>{stage.description}</p>
@@ -178,7 +178,6 @@ const Course = () => {
                   flexDirection: 'column',
                   marginLeft: '20px',
                   minWidth: "120px",
-                  width: "10%",
                 }}>
                   <p>{`Test Score: ${stage.testScore}`}</p>
                   <button
