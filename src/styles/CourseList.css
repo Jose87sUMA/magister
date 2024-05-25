@@ -2,12 +2,16 @@
 
 .course-list-page {
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
     max-width: 80%;
     margin: 0 auto; /* Center the items horizontally */
 }
 
-.course-container {    
-    width: 30%;
+.course-container {
+    max-width: 450px;
+    min-width: 300px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;;

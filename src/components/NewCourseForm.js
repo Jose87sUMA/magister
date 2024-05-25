@@ -78,7 +78,7 @@ const NewCourseForm = () => {
       ) : (
         <div>
           <div className="header-form">
-            <Link to="/"><button>Go Back</button></Link> 
+            <button onClick={() => navigate("/")} aria-label={"Go Back"}>Go Back</button>
           </div>
           <form className='form-container' onSubmit={handleSubmit}>
             <label>
@@ -86,7 +86,7 @@ const NewCourseForm = () => {
               <input name="topic" value={formData.topic} onChange={handleChange} />
             </label>
             <label>
-              Experience:
+              Experience:<span>Experience refers to the user's proficiency and familiarity in a specific topic.</span>
               <select name="experience" value={formData.experience} onChange={handleChange}>
                 <option value="beginner">Beginner</option>
                 <option value="amateur">Amateur</option>

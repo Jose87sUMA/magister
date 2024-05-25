@@ -69,7 +69,7 @@ const Stage = () => {
   return (
     <div className='course-details'>
       <div className="stage-header">
-        <Link to={`/courses/${enrolled ? course.originalCourseID:course.courseID}`}><button>Go Back</button></Link>
+        <button onClick={() => navigate(`/courses/${enrolled ? course.originalCourseID : course.courseID}`)} aria-label={"Go Back"}>Go Back</button>
       </div>
       <h3>{stage.title}</h3>
       <h5>{stage.description}</h5>

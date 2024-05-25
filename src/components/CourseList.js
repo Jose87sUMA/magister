@@ -42,10 +42,12 @@ const CourseList = () => {
                 <div>
                   <p>{course.courseJSON.description}</p>
                   <div className='course-item-footer'>
-                    <p>Stages: {course.courseJSON.stages.length}</p>
-                    <Link to={`/courses/${course.originalCourseID}`}>
-                      <button button className='course-link'>Access</button>
-                    </Link>
+                    <p style={{minWidth: "90px"}}>Stages: {course.courseJSON.stages.length}</p>
+                    <button
+                      className='course-link'
+                      aria-label={`Access ${course.name}`}
+                      onClick={() => navigate(`/courses/${course.originalCourseID}`)}
+                    >Access</button>
                   </div>
                   <progress
                     style={{
@@ -83,10 +85,12 @@ const CourseList = () => {
                 <div>
                   <p>{course.courseJSON.description}</p>
                   <div className='course-item-footer'>
-                    <p>Stages: {course.courseJSON.stages.length}</p>
-                    <Link to={`/courses/${course.courseID}`}>
-                      <button button className='course-link'>Access</button>
-                    </Link>
+                    <p style={{minWidth: "90px"}}>Stages: {course.courseJSON.stages.length}</p>
+                      <button
+                        className='course-link'
+                        aria-label={`Access ${course.name}`}
+                        onClick={() => navigate(`/courses/${course.courseID}`)}
+                      >Access</button>
                   </div>
                 </div>
                 <hr />

@@ -109,9 +109,9 @@ const Course = () => {
   return (
     <div className='course-details'>
       <div className="course-header">
-        <Link to="/"><button>Go Back</button></Link>
+        <button onClick={() => navigate("/")} aria-label={"Go Back"}>Go Back</button>
         {creator && (!course.courseJSON.isPublic ? (
-          <button className='make-public-button' onClick={makeCoursePublic}>Make Public</button>
+              <button className='make-public-button' onClick={makeCoursePublic}>Make Public</button>
         ):
         (
           <p className='course-public-text' disabled>Course is public</p>
@@ -166,8 +166,8 @@ const Course = () => {
                     }}
                   />
                 </div>
-                <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
-                <div style={{display: 'flex', flexDirection: 'column', textAlign: 'left', marginLeft: `10px`}}>
+                <div style={{display: 'flex', flexDirection: 'row', flexWrap:"wrap"}}>
+                <div style={{display: 'flex', flexDirection: 'column', textAlign: 'left', minWidth: "150px", width:"70%", marginLeft: `10px`}}>
                   <h3 style={{}}>{stage.title}</h3>
                   <p style={{marginTop: '0px'
                   }}>{stage.description}</p>
@@ -177,14 +177,14 @@ const Course = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   marginLeft: '20px',
-
+                  minWidth: "120px",
+                  width: "10%",
                 }}>
                   <p>{`Test Score: ${stage.testScore}`}</p>
                   <button
                     style={{
                       height: '30px',
                       minWidth: '120px',
-                      maxWidth: '120px',
                       marginTop: 'auto',
                       marginBottom: '5px'
                     }}

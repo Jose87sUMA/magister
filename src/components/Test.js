@@ -70,7 +70,17 @@ const Test = () => {
       // Handle any errors here
     }
   };
-  
+
+  function handleKeyPress(e, questionIndex, answerIndex) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const radio = document.getElementById(`answer${questionIndex}-${answerIndex}`);
+      if (radio) {
+        radio.checked = true;
+      }
+    }
+  }
+
 
   if (isSubmitted) {
     // Defer navigation after the component has finished rendering
@@ -83,15 +93,15 @@ const Test = () => {
   return (
     <div>
       <form className='form-test-container'>
-      <div className="header-course">
-        <Link to={`/courses/${course.originalCourseID}`}><button>Go Back</button></Link>
-      </div>
-      <h3>{stage.title}</h3>
+        <div className="header-course">
+          <button onClick={() => navigate(`/courses/${course.originalCourseID}`)} aria-label={"Go Back"}>Go Back</button>
+        </div>
+        <h3>{stage.title}</h3>
         {questions.map((question, index) => (
           <div key={index}>
             <label>{question.question}</label>
             {question.answers.map((answer, i) => (
-              <div key={i} >
+              <div tabIndex="0" key={i} onKeyPress={(e) => handleKeyPress(e, index, i)}>
                 <input type="radio" id={`answer${index}-${i}`} name={`question${index}`} value={i} className="radio-custom" />
                 <label htmlFor={`answer${index}-${i}`} className="radio-label">{answer}</label>
               </div>

@@ -45,11 +45,11 @@ const Header = () => {
     <div className="header">
       <nav>
         <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/search-courses">Search</Link></li>
+          <li><Link to="/" aria-label={"My Courses"}>My Courses</Link></li>
+          <li><Link to="/search-courses" aria-label={"Search Courses"}>Search Courses</Link></li>
           <li>
             <div className="profile-dropdown" onClick={handleProfileClick} ref={dropdownRef}>
-              <Link>Profile</Link>
+              <Link aria-label={"Profile"}>Profile</Link>
               <div className={`dropdown-content ${showDropdown ? 'show' : ''}`}>
                 <button onClick={handleLogout}>Log Out</button>
               </div>
