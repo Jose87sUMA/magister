@@ -68,50 +68,48 @@
 }
 
 .flags {
-    display: flex;
+    width: 100%;
+    justify-content: center;
+    /*display: flex;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: space-between;*/
 }
 
 .flag {
     width: 40px; /* Adjust the width of the flags */
     height: 40px; /* Adjust the height of the flags */
     border-radius: 30%;
-    cursor: pointer;
     position: relative;
     margin-top: 10px;
 }
 
-.flag:hover {
-    background-color: #c8c8c8;
-}
-
-.flag.completed {
-    border: solid green;
-}
+/*.flag.completed {*/
+/*    border: solid green;*/
+/*}*/
 
 .flag.incomplete {
     border: solid red;
 }
 
-.flag.completed .flag-icon {
-    color: green;
-}
+/*.flag.completed .flag-icon {*/
+/*    color: green;*/
+/*}*/
 
 .flag.incomplete .flag-icon {
     color: red;
 }
 
-.flag::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 60px; /* Adjust this value to control the position of the line start */
-    width: 120px; /* Adjust this value to control the length of the line */
-    height: 5px; /* Adjust this value to control the thickness of the line */
-    background-color: #ccc;
-    pointer-events: none; /* Disable pointer events on the line */
-}
+/*.flag::before {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 60px; !* Adjust this value to control the position of the line start *!*/
+/*    width: 100%; !* Adjust this value to control the length of the line *!*/
+/*    height: 5px; !* Adjust this value to control the thickness of the line *!*/
+/*    background-color: #ccc;*/
+/*    pointer-events: none; !* Disable pointer events on the line *!*/
+/*}*/
+
 
 .flag:last-child::before {
     display: none; /* Hide the line after the last flag */

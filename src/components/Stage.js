@@ -30,6 +30,12 @@ const Stage = () => {
   const [course, setCourse] = useState(null);
   const [stage, setStage] = useState(null);
 
+  const handleTakeTest = () => {
+    if (window.confirm("Are you sure you want to take the test?")) {
+      navigate(`/courses/${course.originalCourseID}/${stage.id}/test`);
+    }
+  }
+
   useEffect(() => {
     // Check if the current course is in the enrolled courses
     let enrolledCourse = enrolledCourses.find(c => c.originalCourseID == courseID);
@@ -69,7 +75,7 @@ const Stage = () => {
       <h5>{stage.description}</h5>
       <p>{stage.content}</p>
       {enrolled ? (
-        <Link to={`/courses/${course.originalCourseID}/${stage.id}/test`}><button className='take-test-button'>Take Test</button></Link>
+        <button className='take-test-button' onClick={handleTakeTest}>Take Test</button>
       ) : (
         <div>
           <p className='error-text'>You must first enroll to this course to take the test.</p>

@@ -63,6 +63,8 @@ const Test = () => {
       updateStage(course, updatedStage);
   
       setIsSubmitted(true);
+      // TODO: ADD A MESSAGE TO SHOW THE USER THE SCORE
+      alert(`Test evaluated! You scored ${scorePercentage}%`)
     } catch (error) {
       console.error("Error submitting answers:", error);
       // Handle any errors here

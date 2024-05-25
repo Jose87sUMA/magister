@@ -50,16 +50,10 @@ const CourseList = () => {
                   <progress
                     style={{
                       width: '100%',
-                      accentColor: `rgba(${200 *
-                        (1 -
-                          (Math.max(0, course.courseJSON.completionPercentage - 50) / 50))},
-                                      ${200 *
-                                        (Math.min(
-                                          50,
-                                          course.courseJSON.completionPercentage
-                                        ) / 50)},
-                                      0,
-                                      1)`,
+                      accentColor: `rgba(${200 * (1 - (Math.max(0, (course.courseJSON.stages.reduce((sum, stage) => sum + stage.testScore, 0) / course.courseJSON.stages.length) - 50) / 50))},
+                           ${200 * (Math.min(50, (course.courseJSON.stages.reduce((sum, stage) => sum + stage.testScore, 0) / course.courseJSON.stages.length))/ 50)},
+                           0,
+                           1)`,
                     }}
                     value={course.courseJSON.completionPercentage}
                     max='100'

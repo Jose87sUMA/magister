@@ -122,7 +122,10 @@ const Course = () => {
       <p>{course.courseJSON.description}</p>
       {
         enrolled ? (
-          <p>{`Completiton Percentage: ${course.courseJSON.completionPercentage}%`}</p>
+          <div>
+            <p><b>Course Completion:</b> {course.courseJSON.completionPercentage}%</p>
+            <p><b>Average:</b> {(course.courseJSON.stages.reduce((sum, stage) => sum + stage.testScore, 0) / course.courseJSON.stages.length).toFixed(0)}%</p>
+          </div>
         ) : (
           <button className='enroll-button' onClick={enrollToCourse}>Enroll</button>
         )
@@ -133,20 +136,61 @@ const Course = () => {
         <div className="flags">
           {course.courseJSON.stages.map((stage, index) => (
             <div
-              key={index}
-              className={`flag ${selectedStage === index ? 'selected' : ''} ${stage.completed ? 'completed' : 'incomplete'}`}
-              onMouseEnter ={() => {handleStageClick(index)}}
-              onMouseLeave={handleClosePopup}
-              onClick={() => navigate(`/courses/${enrolled ? course.originalCourseID : course.courseID}/${stage.id}`)}
-            >
-              <FaFlag className='flag-icon'/>
-              {selectedStage === index && (
-                <div className="popup">
-                  <h5>{stage.title}</h5>
-                  <p>{stage.description}</p>
-                  <p>{`Test Score: ${stage.testScore}`}</p>
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                marginBottom: '10px'
+              }}>
+                <div
+                  key={index}
+                  className='flag'
+                  style={{
+                    border: `solid rgba(${200 * (1 - (Math.max(0, stage.testScore - 50) / 50))},
+                      ${200 * (Math.min(50, stage.testScore) / 50)},
+                      0,
+                      1)`,
+                    minWidth: '40px',
+                    maxWidth: '40px',
+                    minHeight: '40px',
+                    maxHeight: '40px',
+                  }}
+                >
+                  <FaFlag
+                    className='flag-icon'
+                    style={{
+                      color: `rgba(${200 * (1 - (Math.max(0, stage.testScore - 50) / 50))},
+                      ${200 * (Math.min(50, stage.testScore) / 50)},
+                      0,
+                      1)`
+                    }}
+                  />
                 </div>
-              )}
+
+                <div style={{display: 'flex', flexDirection: 'column', textAlign: 'left', marginLeft: `10px`}}>
+                  <h3 style={{}}>{stage.title}</h3>
+                  <p style={{marginTop: '0px'
+                  }}>{stage.description}</p>
+                </div>
+                <div style={{
+                  marginTop: 'auto',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  marginLeft: '20px',
+
+                }}>
+                  <p>{`Test Score: ${stage.testScore}`}</p>
+                  <button
+                    style={{
+                      height: '30px',
+                      minWidth: '120px',
+                      maxWidth: '120px',
+                      marginTop: 'auto',
+                      marginBottom: '5px'
+                    }}
+                    onClick={() => navigate(`/courses/${enrolled ? course.originalCourseID : course.courseID}/${stage.id}`)}>
+                    Access
+                  </button>
+                </div>
             </div>
           ))}
         </div>

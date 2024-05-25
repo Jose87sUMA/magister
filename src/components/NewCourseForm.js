@@ -50,6 +50,7 @@ const NewCourseForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // TODO: SHOW MESSAGE/ALERT AFTER CREATION
   const handleSubmit = async e => {
     setLoading(true); 
     try {
@@ -58,10 +59,11 @@ const NewCourseForm = () => {
       navigate('/');
     } catch (error) {
       console.error("Error generating or storing course: ", error);
+      alert("Error creating course. Please try again.")
     } finally {
-      setLoading(false); 
+      setLoading(false);
+      alert("Course created successfully!")
     }
-    
   };
 
 
@@ -93,7 +95,9 @@ const NewCourseForm = () => {
               </select>
             </label>
             <label>
-              Intensity:
+              <div class="tooltip">Intensity:
+                <span class="tooltiptext">The intensity of a course refers to its difficulty, workload, and pace.</span>
+              </div>
               <select name="intensity" value={formData.intensity} onChange={handleChange}>
                 <option value="relaxed">Relaxed</option>
                 <option value="standard">Standard</option>
