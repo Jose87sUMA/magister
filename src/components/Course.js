@@ -139,7 +139,8 @@ const Course = () => {
               style={{
                 display: 'flex',
                 flexDirection: 'row',
-                marginBottom: '10px'
+                marginBottom: '10px',
+                justifyContent: 'start',
               }}>
                 <div
                   key={index}
@@ -165,7 +166,7 @@ const Course = () => {
                     }}
                   />
                 </div>
-
+                <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
                 <div style={{display: 'flex', flexDirection: 'column', textAlign: 'left', marginLeft: `10px`}}>
                   <h3 style={{}}>{stage.title}</h3>
                   <p style={{marginTop: '0px'
@@ -190,6 +191,7 @@ const Course = () => {
                     onClick={() => navigate(`/courses/${enrolled ? course.originalCourseID : course.courseID}/${stage.id}`)}>
                     Access
                   </button>
+                </div>
                 </div>
             </div>
           ))}
