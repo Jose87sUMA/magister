@@ -66,6 +66,16 @@ const NewCourseForm = () => {
     }
   };
 
+  const handleKeyDown = (e, name, value) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: value
+      }));
+    }
+  };
+
 
   return (
     <div>
@@ -86,8 +96,10 @@ const NewCourseForm = () => {
               <input name="topic" value={formData.topic} onChange={handleChange} />
             </label>
             <label>
-              Experience:<span>Experience refers to the user's proficiency and familiarity in a specific topic.</span>
-              <select name="experience" value={formData.experience} onChange={handleChange}>
+              <div class="tooltip">Intensity:
+                Experience:<span class="tooltiptext">Experience refers to the user's proficiency and familiarity in a specific topic.</span>
+              </div>
+              <select name="experience" value={formData.experience} onChange={handleChange} onKeyDown={(e) => handleKeyDown(e, 'experience', e.target.value)} tabIndex="0">
                 <option value="beginner">Beginner</option>
                 <option value="amateur">Amateur</option>
                 <option value="experienced">Experienced</option>
@@ -98,7 +110,7 @@ const NewCourseForm = () => {
               <div class="tooltip">Intensity:
                 <span class="tooltiptext">The intensity of a course refers to its difficulty, workload, and pace.</span>
               </div>
-              <select name="intensity" value={formData.intensity} onChange={handleChange}>
+              <select name="intensity" value={formData.intensity} onChange={handleChange} onKeyDown={(e) => handleKeyDown(e, 'experience', e.target.value)} tabIndex="0">
                 <option value="relaxed">Relaxed</option>
                 <option value="standard">Standard</option>
                 <option value="intensive">Intensive</option>
