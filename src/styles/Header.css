@@ -38,7 +38,7 @@
   cursor: pointer;
   font: inherit;
   display: flex;
-  align-items: center;
+  align-items: space-around;
 }
 
 .logout button:hover {

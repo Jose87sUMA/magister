@@ -1,6 +1,7 @@
 // App.js
 import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { CourseProvider } from './CourseContext';
 import Header from './components/Header';
 import Login from './components/auth/Login';
@@ -26,6 +27,9 @@ const router = createBrowserRouter(
       path: '/',
       element: (
         <>
+          <Helmet>
+            <title>Listado de Cursos</title>
+          </Helmet>
           <Header />
           <CourseList />
         </>
@@ -36,6 +40,9 @@ const router = createBrowserRouter(
       path: '/new-course',
       element: (
         <>
+          <Helmet>
+            <title>Crear Nuevo Curso</title>
+          </Helmet>
           <Header />
           <NewCourseForm />
         </>
@@ -45,6 +52,9 @@ const router = createBrowserRouter(
       path: '/courses/:courseID',
       element: (
         <>
+          <Helmet>
+            <title>Página de Curso</title>
+          </Helmet>
           <Header />        
           <CourseCreated />,
         </>
@@ -55,6 +65,9 @@ const router = createBrowserRouter(
       path: '/courses/:courseID/:stageID',
       element: (
         <>
+          <Helmet>
+            <title title>Etapa de Curso</title>
+          </Helmet>
           <Header />        
           <Stage />,
         </>
@@ -65,6 +78,9 @@ const router = createBrowserRouter(
       path: '/courses/:courseID/:stageID/test',
       element: (
         <>
+          <Helmet>
+            <title>Prueba de Etapa</title>
+          </Helmet>
           <Header />        
           <Test />
         </>
@@ -75,6 +91,9 @@ const router = createBrowserRouter(
       path: 'search-courses',
       element: (
         <>
+          <Helmet>
+            <title>Buscar Cursos</title>
+          </Helmet>
           <Header />        
           <SearchPage />
         </>
