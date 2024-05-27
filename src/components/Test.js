@@ -79,24 +79,34 @@ const Test = () => {
   }
 
   return (
-    <div>
-      <form className='form-test-container'>
+    <div className="form-test-container">
       <div className="header-course">
-        <Link to={`/courses/${course.originalCourseID}`}><button>Go Back</button></Link>
+        <Link to={`/courses/${course.originalCourseID}`} tabIndex={-1}><button tabIndex={0}>Volver</button></Link>
       </div>
-      <h3>{stage.title}</h3>
+      <h3 tabIndex={0}>{stage.title}</h3>
+      <form onSubmit={evaluateSubmission} aria-labelledby="test-form">
         {questions.map((question, index) => (
-          <div key={index}>
-            <label>{question.question}</label>
+          <div key={index} className="question-container">
+            <label id={`question${index}`} tabIndex={0}>{question.question}</label>
             {question.answers.map((answer, i) => (
-              <div key={i} >
-                <input type="radio" id={`answer${index}-${i}`} name={`question${index}`} value={i} className="radio-custom" />
-                <label htmlFor={`answer${index}-${i}`} className="radio-label">{answer}</label>
+              <div key={i} className="answer-container">
+                <input
+                  type="radio"
+                  id={`answer${index}-${i}`}
+                  name={`question${index}`}
+                  value={i}
+                  className="radio-custom"
+                  aria-labelledby={`answer-label${index}-${i}`}
+                  tabIndex={0}
+                />
+                <label htmlFor={`answer${index}-${i}`}  className="radio-label" id={`answer-label${index}-${i}`} tabIndex={0}>
+                  {answer}
+                </label>
               </div>
             ))}
           </div>
         ))}
-        <button onClick={evaluateSubmission} type="submit">Submit</button>
+        <button type="submit" tabIndex={0}>Enviar</button>
       </form>
     </div>
   );

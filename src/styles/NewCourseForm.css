@@ -1,78 +1,80 @@
- /* NewCourseForm.css */
- .header-form {
+/* NewCourseForm.css */
+.header-form {
   max-width: 400px;
   margin: 0 auto;
   margin-top: 100px;
 }
 
 .header-form button {
-  max-width: 20%;
+  width: auto;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 3px;
-  padding: 5px 10px;
-  text-decoration: none;
+  padding: 10px 20px;
   cursor: pointer;
 }
 
 .header-form button:hover {
-  background-color: #0056b3;
+  background-color: #002C5C;
 }
 
- .form-container {
-    max-width: 400px;
-    margin: 1% auto;
-  }
-  
-  .form-container label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  .form-container input,
-  .form-container select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .form-container button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .form-container button:hover {
-    background-color: #0056b3;
-  }
+.form-container {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
 
-  .loading-screen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 18%;
+.form-container label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.form-container input,
+.form-container select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #004FA3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-container button:hover {
+  background-color: #002C5C;
+}
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 18%;
+}
+
+.loading-animation {
+  border: 8px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #333;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
-  
-  .loading-animation {
-    border: 8px solid rgba(0, 0, 0, 0.1);
-    border-left-color: #333;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
+}

@@ -8,6 +8,7 @@ import '../styles/CourseList.css';
 
 const CourseList = () => {
   const navigate = useNavigate();
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (!user) {
@@ -18,33 +19,27 @@ const CourseList = () => {
 
   const { enrolledCourses, createdCourses } = useCourseContext();
 
-  useEffect(() => {
-    console.log(enrolledCourses);
-    console.log(createdCourses); 
-  },[enrolledCourses, createdCourses]);
-
   return (
     <div className='course-list-page'>
-      {/* Enrolled Courses */}
       <div className='course-container'>
         <div className='course-list'>
           <div className='course-list-header'>
-            <h3>Tus cursos inscritos</h3>
-            <Link to='/search-courses' aria-label='search course to enroll'>
-              <FaPlus className='plus-icon' />
+            <h3 id='enrolled-courses-heading' tabIndex={0}>Tus cursos inscritos</h3>
+            <Link to='/search-courses' aria-label='Search course to enroll' tabIndex={0}>
+              <FaPlus className='plus-icon' aria-hidden='true' />
             </Link>
           </div>
-          <hr />
+          <hr aria-hidden='true' />
           {enrolledCourses.map((course, index) => (
             course.courseJSON.visible && (
               <div key={index} className='course-item'>
-                <p className='course-title'>{course.courseJSON.title}</p>
+                <p className='course-title' tabIndex={0}>{course.courseJSON.title}</p>
                 <div>
-                  <p>{course.courseJSON.description}</p>
+                  <p tabIndex={0}>{course.courseJSON.description}</p>
                   <div className='course-item-footer'>
-                    <p>Stages: {course.courseJSON.stages.length}</p>
-                    <Link to={`/courses/${course.originalCourseID}`}>
-                      <button button className='course-link'>Access</button>
+                    <p tabIndex={0}>Stages: {course.courseJSON.stages.length}</p>
+                    <Link to={`/courses/${course.originalCourseID}`} tabIndex={-1}>
+                      <button className='course-link' tabIndex={0}>Acceder</button>
                     </Link>
                   </div>
                   <progress
@@ -63,8 +58,13 @@ const CourseList = () => {
                     }}
                     value={course.courseJSON.completionPercentage}
                     max='100'
+                    aria-valuenow={course.courseJSON.completionPercentage}
+                    aria-valuemin='0'
+                    aria-valuemax='100'
+                    aria-labelledby='enrolled-courses-heading'
+                    tabIndex={0}
                   />
-                  <hr />
+                  <hr aria-hidden='true' />
                 </div>
               </div>
             )
@@ -72,30 +72,29 @@ const CourseList = () => {
         </div>
       </div>
 
-      {/* Created Courses */}
       <div className='course-container'>
         <div className='course-list'>
           <div className='course-list-header'>
-            <h3>Tus cursos creados</h3>
-            <Link to='/new-course' aria-label='create course'>
-              <FaPlus className='plus-icon' />
+            <h3 id='created-courses-heading' tabIndex={0}>Tus cursos creados</h3>
+            <Link to='/new-course' aria-label='Create new course' tabIndex={0}>
+              <FaPlus className='plus-icon' aria-hidden='true' />
             </Link>
           </div>
-          <hr />
+          <hr aria-hidden='true' />
           {createdCourses.map((course, index) => (
             course.courseJSON.visible && (
               <div key={index} className='course-item'>
-                <p className='course-title'>{course.courseJSON.title}</p>
+                <p className='course-title' tabIndex={0}>{course.courseJSON.title}</p>
                 <div>
-                  <p>{course.courseJSON.description}</p>
+                  <p tabIndex={0}>{course.courseJSON.description}</p>
                   <div className='course-item-footer'>
-                    <p>Stages: {course.courseJSON.stages.length}</p>
-                    <Link to={`/courses/${course.courseID}`}>
-                      <button button className='course-link'>Access</button>
+                    <p tabIndex={0}>Stages: {course.courseJSON.stages.length}</p>
+                    <Link to={`/courses/${course.courseID}`} tabIndex={-1}>
+                      <button className='course-link' tabIndex={0}>Acceder</button>
                     </Link>
                   </div>
                 </div>
-                <hr />
+                <hr aria-hidden='true' />
               </div>
             )
           ))}

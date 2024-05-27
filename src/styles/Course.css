@@ -1,4 +1,3 @@
-/* Course.css */
 .course-header {
     display: flex;
     justify-content: space-between;
@@ -6,7 +5,7 @@
 }
 
 .course-header button {
-    background-color: #007bff;
+    background-color: #004FA3;
     color: #fff;
     border: none;
     width: 20%;
@@ -16,12 +15,12 @@
     cursor: pointer;
 }
 
-.course-header a button{
-    width: 100%
+.course-header a button {
+    width: 100%;
 }
 
 .course-header button:hover {
-    background-color: #0056b3;
+    background-color: #002C5C;
 }
 
 .course-public-text {
@@ -47,7 +46,7 @@
 }
 
 .course-details button {
-    background-color: #007bff;
+    background-color: #004FA3;
     color: #fff;
     border: none;
     width: 20%;
@@ -57,8 +56,9 @@
     cursor: pointer;
 }
 
+.course-details button:hover,
 .enroll-button:hover {
-    background-color: #0056b3;
+    background-color: #002C5C;
 }
 
 .map {
@@ -74,8 +74,8 @@
 }
 
 .flag {
-    width: 40px; /* Adjust the width of the flags */
-    height: 40px; /* Adjust the height of the flags */
+    width: 40px;
+    height: 40px;
     border-radius: 30%;
     cursor: pointer;
     position: relative;
@@ -106,15 +106,15 @@
     content: "";
     position: absolute;
     top: 50%;
-    left: 60px; /* Adjust this value to control the position of the line start */
-    width: 120px; /* Adjust this value to control the length of the line */
-    height: 5px; /* Adjust this value to control the thickness of the line */
+    left: 60px;
+    width: 120px;
+    height: 5px;
     background-color: #ccc;
-    pointer-events: none; /* Disable pointer events on the line */
+    pointer-events: none;
 }
 
 .flag:last-child::before {
-    display: none; /* Hide the line after the last flag */
+    display: none;
 }
 
 .flag-icon {
@@ -126,9 +126,9 @@
 
 .popup {
     position: absolute;
-    top: 100%; /* Position the popup below the flag */
-    left: 50%; /* Center the popup horizontally */
-    transform: translateX(-50%); /* Center the popup horizontally */
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -153,7 +153,7 @@
 }
 
 .popup button {
-    background-color: #007bff;
+    background-color: #004FA3;
     color: #fff;
     border: none;
     border-radius: 3px;

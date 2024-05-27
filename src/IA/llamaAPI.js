@@ -74,7 +74,11 @@ const schema = {
               type: "string"
             },
             content: {
-              type: "string"
+              type: "array",
+              items: {
+                title: "string",
+                content: "string"
+              }
             },
             completed: {
               type: "boolean",

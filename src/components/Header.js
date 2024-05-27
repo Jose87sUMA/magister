@@ -1,12 +1,13 @@
 // Header.js
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import '../styles/Header.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
-  const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
@@ -14,7 +15,6 @@ const Header = () => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         // Click occurred outside of the dropdown, so close it
-        setShowDropdown(false);
       }
     };
 
@@ -27,37 +27,37 @@ const Header = () => {
     };
   }, []);
 
-  const handleProfileClick = () => {
-    setShowDropdown(!showDropdown);
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        navigate('/login');
+        console.log('Signed out successfully');
+      })
+      .catch((error) => {
+        // An error happened.
+        console.error('Error signing out: ', error);
+      });
   };
 
-  const handleLogout = () => {               
-    signOut(auth).then(() => {
-      // Sign-out successful.
-      navigate("/login");
-      console.log("Signed out successfully")
-    }).catch((error) => {
-      // An error happened.
-    });
-  }
-
   return (
-    <div className="header">
+    <header className="header">
       <nav>
         <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/search-courses">Search</Link></li>
-          <li>
-            <div className="profile-dropdown" onClick={handleProfileClick} ref={dropdownRef}>
-              <Link>Profile</Link>
-              <div className={`dropdown-content ${showDropdown ? 'show' : ''}`}>
-                <button onClick={handleLogout}>Log Out</button>
-              </div>
-            </div>
+          <li><Link to="/" aria-label="Inicio">Inicio</Link></li>
+          <li><Link to="/search-courses" aria-label="Buscar cursos">Buscar cursos</Link></li>
+          <li className="logout">
+            <button
+              aria-label="Cerrar Sesión"
+              onClick={handleLogout}
+            >
+              <FontAwesomeIcon icon={faSignOutAlt} />
+              <span>Cerrar Sesión</span>
+            </button>
           </li>
         </ul>
       </nav>
-    </div>
+    </header>
   );
 };
 

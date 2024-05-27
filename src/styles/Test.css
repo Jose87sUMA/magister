@@ -1,92 +1,79 @@
 /* Test.css */
 .form-test-container {
     margin: 20px auto;
-    width: 50%;
-    margin-top: 10px;
+    width: 80%;
+    max-width: 800px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-}
-
-.header-course {
+    background-color: #f9f9f9;
+  }
+  
+  .header-course {
     display: flex;
-    flex-direction: column;
     justify-content: flex-start;
-    width: 100%;
-}
+    margin-bottom: 20px;
+  }
 
-.header-course button {
-    background-color: #007bff;
-    width: 100%;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    padding: 5px 10px;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.header-course button:hover {
-    background-color: #0056b3;
-}
-
-label {
+  .header-course a {
+    width: fit-content;
+  }
+  
+  .header-course button:hover {
+    background-color: #002C5C;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 18px;
+    text-align: center;
+    margin: 20px;
+  }
+  
+  label {
     display: block;
     margin-bottom: 10px;
-}
-
-input[type="radio"] {
+  }
+  
+  .radio-custom {
     display: none; /* Hide the default radio button */
-}
-
-/* Custom radio button style */
-.radio-custom {
-    display: none; /* Hide the default radio button */
-}
-
-/* Styling for the checked state */
-.radio-custom:checked + .radio-label::before {
-    content: ''; /* Unicode for a filled circle */
+  }
+  
+  .radio-custom:checked + .radio-label::before {
+    content: '';
     display: inline-block;
-    width: 10px;
-    height: 10px;
-    line-height: 20px;
-    text-align: center;
-    background-color: #007bff; /* Change color as needed */
-    color: #fff;
+    width: 12px;
+    height: 12px;
+    background-color: #004FA3;
     border-radius: 50%;
     margin-right: 10px;
-}
-
-/* Hide default radio button and style its label */
-.radio-label {
+  }
+  
+  .radio-label {
     display: inline-block;
     vertical-align: middle;
     cursor: pointer;
     margin-left: 10px;
-}
-
-/* Indicator for the selected state */
-.radio-label::before {
-    content: ''; /* Unicode for an empty circle */
+  }
+  
+  .radio-label::before {
+    content: '';
     display: inline-block;
-    width: 10px;
-    height: 10px;
-    line-height: 20px;
-    text-align: center;
-    background-color: #fff; /* Change color as needed */
-    color: #ccc;
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 50%;
     margin-right: 10px;
-}
-
-.form-test-container button {
+  }
+  
+  .form-test-container button {
     display: block;
-    width: 60%;
-    margin: 10px auto;
+    width: 100%;
+    max-width: 200px;
+    margin: 20px auto;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #004FA3;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -94,5 +81,6 @@ input[type="radio"] {
   }
   
   .form-test-container button:hover {
-    background-color: #0056b3;
+    background-color: #002C5C;
   }
+  

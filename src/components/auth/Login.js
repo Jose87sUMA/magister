@@ -32,34 +32,36 @@ const Login = () => {
 
     return (
         <div className="auth-form-container">
-        <h2>Login</h2>
-        <form>
-            <div className="form-group">
-            <label>Email:</label>
-            <input
-                id="email-address"
-                name="email"
-                type="email"                                    
-                required                                                                                
-                placeholder="Email address"
-                onChange={(e)=>setEmail(e.target.value)}
-            />
-            </div>
-            <div className="form-group">
-            <label>Password:</label>
-            <input
-                id="password"
-                name="password"
-                type="password"                                    
-                required                                                                                
-                placeholder="Password"
-                onChange={(e)=>setPassword(e.target.value)}
-            />
-            </div>
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-            <button type="submit" onClick={onLogin}>Login</button>
-        </form>
-        <p className='form-p'>Don't have an account? <Link to="/signup">Sign Up</Link></p>
+            <h2 tabIndex={0}>Iniciar Sesión</h2>
+            <form>
+                <div className="form-group">
+                    <label htmlFor="email" tabIndex={0}>Dirección de correo electrónico:</label>
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"                                    
+                        required                                                                                
+                        placeholder="Dirección de correo electrónico"
+                        onChange={(e)=>setEmail(e.target.value)}
+                        tabIndex={0}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password" tabIndex={0}>Contraseña:</label>
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"                                    
+                        required                                                                                
+                        placeholder="Contraseña"
+                        onChange={(e)=>setPassword(e.target.value)}
+                        tabIndex={0}
+                    />
+                </div>
+                {errorMessage && <p className="error-message" tabIndex={0}>{errorMessage}</p>}
+                <button type="submit" onClick={onLogin} tabIndex={0}>Iniciar Sesión</button>
+            </form>
+            <p className='form-p' tabIndex={0}>¿No tienes cuenta? <Link to="/signup" tabIndex={0}>Registrarse</Link></p>
         </div>
     );
 };
