@@ -1,52 +1,48 @@
 // NewCourseForm.js
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
-import { collection, addDoc, updateDoc } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
 import { useCourseContext } from '../CourseContext';
 import { db } from '../firebase';
 import { generateCourse } from '../IA/llamaAPI';
 import '../styles/NewCourseForm.css';
 
 const NewCourseForm = () => {
-  
   const navigate = useNavigate();
-  useEffect(()=>{
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-
-        } else {
-          navigate("/login")
-        }
-      });
-  } , [])
-
-  const user = auth.currentUser;
   const { createCourse } = useCourseContext();
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     topic: '',
     experience: 'beginner',
     intensity: 'relaxed',
   });
 
-  const storeCourse = async (courseString) => {  
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate('/login');
+      }
+    });
+  }, [navigate]);
+
+  const user = auth.currentUser;
+
+  const storeCourse = async (courseString) => {
     try {
-        const docRef = await addDoc(collection(db, "courses"), {
-          courseString: courseString,    
-          userID: user.uid,
-        });
-        //update entry on db with the id of the course
-        console.log("Document written with ID: ", docRef.id);
-        createCourse({courseString: courseString, courseID: docRef.id, userID: user.uid})
-
+      const docRef = await addDoc(collection(db, 'courses'), {
+        courseString: courseString,
+        userID: user.uid,
+      });
+      console.log('Document written with ID: ', docRef.id);
+      createCourse({ courseString: courseString, courseID: docRef.id, userID: user.uid });
     } catch (e) {
-      console.error("Error adding document: ", e);
+      console.error('Error adding document: ', e);
     }
-  }
+  };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -76,83 +72,50 @@ const NewCourseForm = () => {
     }
   };
 
-
   return (
     <div>
-      
-      {loading ? ( // Render loading screen if loading state is true
+      {loading ? (
         <div className="loading-screen">
-          <div className="loading-animation"></div>
+          <div className="loading-animation" aria-label="Loading"></div>
           <p>Creating course...</p>
         </div>
       ) : (
         <div>
           <div className="header-form">
-            <button onClick={() => navigate("/")} aria-label={"Go Back"}>Go Back</button>
+            <button onClick={() => navigate("/")} aria-label={"Volver"}>Volver</button>
           </div>
           <form className='form-container' onSubmit={handleSubmit}>
-            <label>
-              Topic:
+            <label tabIndex={0}>
+              Tema:
               <input name="topic" value={formData.topic} onChange={handleChange} />
             </label>
-            <label>
-              <div class="tooltip">Intensity:
-                Experience:<span class="tooltiptext">Experience refers to the user's proficiency and familiarity in a specific topic.</span>
+            <label tabIndex={0}>
+              <div class="tooltip">Experiencia:
+                <span class="tooltiptext">Experiencia se refiere a la competencia o familiaridad que tiene el usuario en el tema específico.</span>
               </div>
               <select name="experience" value={formData.experience} onChange={handleChange} onKeyDown={(e) => handleKeyDown(e, 'experience', e.target.value)} tabIndex="0">
-                <option value="beginner">Beginner</option>
-                <option value="amateur">Amateur</option>
-                <option value="experienced">Experienced</option>
-                <option value="expert">Expert</option>
+                <option aria-label="Principiante" value="beginner">Principiante</option>
+                <option aria-label="Amateur" value="amateur">Amateur</option>
+                <option aria-label="Experimentado/a" value="experienced">Experimentado/a</option>
+                <option aria-label="Experto/a" value="expert">Experto/a</option>
               </select>
             </label>
-            <label>
-              <div class="tooltip">Intensity:
-                <span class="tooltiptext">The intensity of a course refers to its difficulty, workload, and pace.</span>
+            <label tabIndex={0}>
+              <div class="tooltip">Intensidad:
+                <span class="tooltiptext">La intensidad del curso se refiere a la cantidad de trabajo.</span>
               </div>
               <select name="intensity" value={formData.intensity} onChange={handleChange} onKeyDown={(e) => handleKeyDown(e, 'experience', e.target.value)} tabIndex="0">
-                <option value="relaxed">Relaxed</option>
-                <option value="standard">Standard</option>
-                <option value="intensive">Intensive</option>
+                <option aria-label="Relajado" value="relaxed">Relajado</option>
+                <option aria-label="Estándar" value="standard">Estándar</option>
+                <option aria-label="Intensivo" value="intensive">Intensivo</option>
               </select>
             </label>
-            <button type="submit">Generate Course</button>
+            <button type="submit" aria-label="Generar curso">Generar Curso</button>
           </form>
         </div>
       )}
     </div>
-
   );
 };
-
-// Prompt for AI API
-const generateCoursePrompt = (topic, experience, intensity) => {
-    return `Generate course on ${topic} for ${experience} users with ${intensity} intensity. The result must have the following format of a json:
-    {
-      "title": "Course Title",
-      "description": "Course Description", //synopsis of the course
-      "completionPercentage": 0, //initial value
-      "stages": [
-        {
-          "id": 1, //unique identifier from 1 to n stages
-          "title": "Stage Title", // title of the topic
-          "description": "Stage Description", //synopsis of the topic
-          "content": "", //full content of the stage. must be extensive text with all the content the user needs to know at their level on the topic. it must be adequate to the experience and intensity, also must have coherence with the other stages. after reading what you write on this section the user must be able to understand the topic. write the full content, dont skip anything on this section, be as extensive as needed.
-          "completed": false, //initial value
-          "testScore": 0, //initial value
-          "questions": /*array of questions related to the content of the stage*/ [
-            {
-              "question": "Question", //question related to the content of the stage
-              "answers": ["Answer 1", "Answer 2", "Answer 3", "Answer 4"], //array of possible answers, only one correct
-              "correctAnswer": 0, //index of the correct answer
-            },
-            // define around 5 - 10 questions per stage that are not too easy or too difficult and not too similar to each other
-          ],
-        }
-        // define around 5 stages that are sequential and coherent with the topic
-      ]
-    }`;
-  };
-  
 
 export default NewCourseForm;

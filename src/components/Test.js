@@ -94,21 +94,21 @@ const Test = () => {
     <div>
       <form className='form-test-container'>
         <div className="header-course">
-          <button onClick={() => navigate(`/courses/${course.originalCourseID}`)} aria-label={"Go Back"}>Go Back</button>
+          <button onClick={() => navigate(`/courses/${course.originalCourseID}`)} aria-label={"Volver"} tabIndex={0}>Volver</button>
         </div>
-        <h3>{stage.title}</h3>
+        <h3 tabIndex={0}>{stage.title}</h3>
         {questions.map((question, index) => (
-          <div key={index}>
-            <label>{question.question}</label>
+          <div key={index} className="question-container">
+            <label id={`question${index}`} tabIndex={0}>{question.question}</label>
             {question.answers.map((answer, i) => (
-              <div tabIndex="0" key={i} onKeyPress={(e) => handleKeyPress(e, index, i)}>
+              <div tabIndex={0} key={i} onKeyPress={(e) => handleKeyPress(e, index, i)}>
                 <input type="radio" id={`answer${index}-${i}`} name={`question${index}`} value={i} className="radio-custom" />
                 <label htmlFor={`answer${index}-${i}`} className="radio-label">{answer}</label>
               </div>
             ))}
           </div>
         ))}
-        <button onClick={evaluateSubmission} type="submit">Submit</button>
+        <button type="submit" tabIndex={0}>Enviar</button>
       </form>
     </div>
   );

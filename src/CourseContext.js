@@ -149,9 +149,6 @@ export const CourseProvider = ({ children }) => {
     addEnrolledCourse
   };
 
-  console.log(enrolledCourses);
-  console.log(createdCourses);
-  console.log(auth.currentUser);
   return (
     <CourseContext.Provider value={contextValue}>
       {children}

@@ -8,6 +8,7 @@ import '../styles/CourseList.css';
 
 const CourseList = () => {
   const navigate = useNavigate();
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (!user) {
@@ -18,36 +19,30 @@ const CourseList = () => {
 
   const { enrolledCourses, createdCourses } = useCourseContext();
 
-  useEffect(() => {
-    console.log(enrolledCourses);
-    console.log(createdCourses); 
-  },[enrolledCourses, createdCourses]);
-
   return (
     <div className='course-list-page'>
-      {/* Enrolled Courses */}
       <div className='course-container'>
         <div className='course-list'>
           <div className='course-list-header'>
-            <h3>Tus cursos inscritos</h3>
-            <Link to='/search-courses' aria-label='search course to enroll'>
-              <FaPlus className='plus-icon' />
+            <h3 id='enrolled-courses-heading' tabIndex={0}>Tus cursos inscritos</h3>
+            <Link to='/search-courses' aria-label='Search course to enroll' tabIndex={0}>
+              <FaPlus className='plus-icon' aria-hidden='true' />
             </Link>
           </div>
-          <hr />
+          <hr aria-hidden='true' />
           {enrolledCourses.map((course, index) => (
             course.courseJSON.visible && (
               <div key={index} className='course-item'>
-                <p className='course-title'>{course.courseJSON.title}</p>
+                <p className='course-title' tabIndex={0}>{course.courseJSON.title}</p>
                 <div>
-                  <p>{course.courseJSON.description}</p>
+                  <p tabIndex={0}>{course.courseJSON.description}</p>
                   <div className='course-item-footer'>
-                    <p style={{minWidth: "90px"}}>Stages: {course.courseJSON.stages.length}</p>
+                    <p style={{minWidth: "90px"}} tabIndex={0}>Etapas: {course.courseJSON.stages.length}</p>
                     <button
                       className='course-link'
                       aria-label={`Access ${course.name}`}
                       onClick={() => navigate(`/courses/${course.originalCourseID}`)}
-                    >Access</button>
+                      tabIndex={0}>Acceder</button>
                   </div>
                   <progress
                     style={{
@@ -59,8 +54,13 @@ const CourseList = () => {
                     }}
                     value={course.courseJSON.completionPercentage}
                     max='100'
+                    aria-valuenow={course.courseJSON.completionPercentage}
+                    aria-valuemin='0'
+                    aria-valuemax='100'
+                    aria-labelledby='enrolled-courses-heading'
+                    tabIndex={0}
                   />
-                  <hr />
+                  <hr aria-hidden='true' />
                 </div>
               </div>
             )
@@ -68,32 +68,31 @@ const CourseList = () => {
         </div>
       </div>
 
-      {/* Created Courses */}
       <div className='course-container'>
         <div className='course-list'>
           <div className='course-list-header'>
-            <h3>Tus cursos creados</h3>
-            <Link to='/new-course' aria-label='create course'>
-              <FaPlus className='plus-icon' />
+            <h3 id='created-courses-heading' tabIndex={0}>Tus cursos creados</h3>
+            <Link to='/new-course' aria-label='Create new course' tabIndex={0}>
+              <FaPlus className='plus-icon' aria-hidden='true' />
             </Link>
           </div>
-          <hr />
+          <hr aria-hidden='true' />
           {createdCourses.map((course, index) => (
             course.courseJSON.visible && (
               <div key={index} className='course-item'>
-                <p className='course-title'>{course.courseJSON.title}</p>
+                <p className='course-title' tabIndex={0}>{course.courseJSON.title}</p>
                 <div>
-                  <p>{course.courseJSON.description}</p>
+                  <p tabIndex={0}>{course.courseJSON.description}</p>
                   <div className='course-item-footer'>
-                    <p style={{minWidth: "90px"}}>Stages: {course.courseJSON.stages.length}</p>
+                    <p style={{minWidth: "90px"}} tabIndex={0}>Etapas: {course.courseJSON.stages.length}</p>
                       <button
                         className='course-link'
                         aria-label={`Access ${course.name}`}
                         onClick={() => navigate(`/courses/${course.courseID}`)}
-                      >Access</button>
+                        tabIndex={0}>Acceder</button>
                   </div>
                 </div>
-                <hr />
+                <hr aria-hidden='true' />
               </div>
             )
           ))}

@@ -1,36 +1,74 @@
-.course-details .take-test-button {
+/* Stage.css */
+.loading-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10%;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .course-details {
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .course-details h3 {
+    margin-bottom: 10px;
+  }
+  
+  .course-details h5 {
+    margin-bottom: 10px;
+  }
+  
+  .course-details p {
+    margin-bottom: 15px;
+  }
+  
+  .course-details .take-test-button,
+  .course-details .take-test-button-disabled {
     padding: 10px 20px;
     width: 100%;
-    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 0 auto; /* Center the buttons horizontally */
-    display: block; /* Ensure each button occupies a full line */
-}
-
-.course-details .take-test-button-disabled {
-    padding: 10px 20px;
-    width: 100%;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  .course-details .take-test-button {
+    background-color: #004FA3;
+  }
+  
+  .course-details .take-test-button:hover {
+    background-color: #002C5C;
+  }
+  
+  .course-details .take-test-button-disabled {
     background-color: #878787;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
     cursor: not-allowed;
-    margin: 0 auto; /* Center the buttons horizontally */
-    display: block; /* Ensure each button occupies a full line */
-}
-
-.course-details .error-text {
+  }
+  
+  .course-details .error-text {
     color: red;
     font-size: 18px;
     margin-top: 10px;
     text-align: center;
-}
-
-.stage-header button {
-    background-color: #007bff;
+  }
+  
+  .stage-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .stage-header button {
+    background-color: #004FA3;
     color: #fff;
     border: none;
     width: 20%;
@@ -38,12 +76,13 @@
     padding: 5px 10px;
     text-decoration: none;
     cursor: pointer;
-}
-
-.stage-header a button{
-    width: 20%
-}
-
-.stage-header button:hover {
-    background-color: #0056b3;
-}
+  }
+  
+  .stage-header a button {
+    width: 100%;
+  }
+  
+  .stage-header button:hover {
+    background-color: #002C5C;
+  }
+  

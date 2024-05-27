@@ -1,9 +1,9 @@
 // Stage.js
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
-import { useCourseContext } from '../CourseContext'; // Import the context hook
+import { useCourseContext } from '../CourseContext';
 import '../styles/Stage.css';
 
 export async function loader({ params }) {
@@ -12,20 +12,9 @@ export async function loader({ params }) {
 
 const Stage = () => {
   const navigate = useNavigate();
-  useEffect(()=>{
-      onAuthStateChanged(auth, (user) => {
-          if (user) {
-
-          } else {
-            navigate("/login")
-          }
-        });
-  }, [navigate])
-
   const { courseID, stageID } = useLoaderData();
-  const { enrolledCourses, allCourses, fetchAllCourses } = useCourseContext(); // Use the context hook to get the courses data
+  const { enrolledCourses, allCourses, fetchAllCourses } = useCourseContext();
 
-  // Find the course data from the courses array using courseId
   const [enrolled, setEnrolled] = useState(true);
   const [course, setCourse] = useState(null);
   const [stage, setStage] = useState(null);
@@ -37,49 +26,46 @@ const Stage = () => {
   }
 
   useEffect(() => {
-    // Check if the current course is in the enrolled courses
-    let enrolledCourse = enrolledCourses.find(c => c.originalCourseID == courseID);
+    onAuthStateChanged(auth, (user) => {
+      if (!user) navigate("/login");
+    });
+  }, [navigate]);
 
-    if (!enrolledCourse) {
-      setEnrolled(false);
-    }
+  useEffect(() => {
+    let enrolledCourse = enrolledCourses.find(c => c.originalCourseID == courseID);
+    if (!enrolledCourse) setEnrolled(false);
 
     let allCourse = allCourses.find(c => c.courseID == courseID);
-
-    if (!allCourse) {
-    }
     const course = enrolledCourse ? enrolledCourse : allCourse;
-    if (!course) {
-      return;
-    }
+    if (!course) return;
+
     setCourse(course);
     setStage(course.courseJSON.stages.find(s => s.id == stageID));
-
   }, [enrolledCourses, course, allCourses, stageID]);
 
   if (!allCourses.length) {
     fetchAllCourses();
-    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: "10%"}}>Loading...</div>;
+    return <div className="loading-message" tabIndex={0}>Cargando...</div>;
   }
 
   if (!stage) {
-    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: "10%"}}>Stage not found</div>; // Render a message if the course is not found
+    return <div className="loading-message" tabIndex={0}>Etapa no encontrada</div>;
   }
 
   return (
     <div className='course-details'>
       <div className="stage-header">
-        <button onClick={() => navigate(`/courses/${enrolled ? course.originalCourseID : course.courseID}`)} aria-label={"Go Back"}>Go Back</button>
+        <button onClick={() => navigate(`/courses/${enrolled ? course.originalCourseID : course.courseID}`)} aria-label={"Volver"} tabIndex={0}>Volver</button>
       </div>
-      <h3>{stage.title}</h3>
-      <h5>{stage.description}</h5>
-      <p>{stage.content}</p>
+      <h3 tabIndex={0}>{stage.title}</h3>
+      <h5 tabIndex={0}>{stage.description}</h5>
+      <p tabIndex={0}>{stage.content}</p>
       {enrolled ? (
-        <button className='take-test-button' onClick={handleTakeTest}>Take Test</button>
+        <button className='take-test-button' onClick={handleTakeTest} aria-label={"Hacer prueba"} tabIndex={0}>Hacer Prueba</button>
       ) : (
         <div>
-          <p className='error-text'>You must first enroll to this course to take the test.</p>
-          <button className='take-test-button-disabled' disabled>Take Test</button>
+          <p className='error-text' tabIndex={0}>You must first enroll to this course to take the test.</p>
+          <button className='take-test-button-disabled' disabled tabIndex={0}>Take Test</button>
         </div>
       )}
     </div>

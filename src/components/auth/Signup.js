@@ -31,38 +31,38 @@ const Signup = () => {
 
     return (
         <div className="auth-form-container">
-            <h2>Sign Up</h2>
+            <h2 tabIndex={0}>Registrarse</h2>
             <form>
                 <div className="form-group">
-                    <label>Email:</label>
+                    <label htmlFor="email" tabIndex={0}>Dirección de correo electrónico:</label>
                     <input
+                        id="email"
                         type="email"
-                        label="Email address"
+                        label="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        placeholder="Email address"
+                        placeholder="Dirección de correo electrónico"
+                        tabIndex={0}
                     />
                 </div>
                 <div className="form-group">
-                    <label>Password:</label>
+                    <label htmlFor="password" tabIndex={0}>Contraseña:</label>
                     <input
-                        type="password"
-                        label="Create password"
+                        id="password"
+                        name="password"
+                        type="password" 
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        placeholder="Password"
+                        placeholder="Contraseña"
+                        tabIndex={0}
                     />
                 </div>
-                {errorMessage && <p className="error-message">{errorMessage}</p>}
-                <button type="submit" onClick={onSubmit}>
-                    Sign Up
-                </button>
+                {errorMessage && <p className="error-message" tabIndex={0}>{errorMessage}</p>}
+                <button type="submit" onClick={onSubmit} tabIndex={0}>Registrarse</button>
             </form>
-            <p>
-                Already have an account? <Link to="/login">Login</Link>
-            </p>
+            <p className='form-p' tabIndex={0}>¿Ya tienes cuenta? <Link to="/login">Iniciar Sesión</Link></p>
         </div>
     );
 };
