@@ -103,6 +103,8 @@ const router = createBrowserRouter(
   ]
 );
 
+document.documentElement.lang = "es"; 
+
 const App = () => {
   return (
     <CourseProvider>
