@@ -153,9 +153,10 @@ const Course = () => {
                       marginTop: 'auto',
                       marginBottom: '5px'
                     }}
+                    aria-label={`Acceder a ${stage.title}`}
                     onClick={() => navigate(`/courses/${enrolled ? course.originalCourseID : course.courseID}/${stage.id}`)}
                     tabIndex={0}>
-                    Access
+                    Acceder
                   </button>
                 </div>
                 </div>

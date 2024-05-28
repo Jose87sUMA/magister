@@ -40,7 +40,7 @@ const CourseList = () => {
                     <p style={{minWidth: "90px"}} tabIndex={0}>Etapas: {course.courseJSON.stages.length}</p>
                     <button
                       className='course-link'
-                      aria-label={`Access ${course.name}`}
+                      aria-label={`Acceder a ${course.name}`}
                       onClick={() => navigate(`/courses/${course.originalCourseID}`)}
                       tabIndex={0}>Acceder</button>
                   </div>
@@ -87,7 +87,7 @@ const CourseList = () => {
                     <p style={{minWidth: "90px"}} tabIndex={0}>Etapas: {course.courseJSON.stages.length}</p>
                       <button
                         className='course-link'
-                        aria-label={`Access ${course.name}`}
+                        aria-label={`Acceder a ${course.name}`}
                         onClick={() => navigate(`/courses/${course.courseID}`)}
                         tabIndex={0}>Acceder</button>
                   </div>
