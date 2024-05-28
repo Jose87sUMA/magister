@@ -35,7 +35,7 @@ const Login = () => {
             <h2 tabIndex={0}>Iniciar Sesión</h2>
             <form>
                 <div className="form-group">
-                    <label htmlFor="email" tabIndex={0}>Dirección de correo electrónico:</label>
+                    <label htmlFor="email">Dirección de correo electrónico:</label>
                     <input
                         id="email"
                         name="email"
@@ -47,7 +47,7 @@ const Login = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password" tabIndex={0}>Contraseña:</label>
+                    <label htmlFor="password">Contraseña:</label>
                     <input
                         id="password"
                         name="password"

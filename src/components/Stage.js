@@ -20,7 +20,7 @@ const Stage = () => {
   const [stage, setStage] = useState(null);
 
   const handleTakeTest = () => {
-    if (window.confirm("Are you sure you want to take the test?")) {
+    if (window.confirm("¿Estás seguro de que quieres iniciar la prueba?")) {
       navigate(`/courses/${course.originalCourseID}/${stage.id}/test`);
     }
   }

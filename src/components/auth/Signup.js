@@ -11,12 +11,17 @@ const Signup = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     const onSubmit = async (e) => {
         e.preventDefault();
 
         try {
+            if (password !== password2) {
+                throw new Error('Las contraseñas no coinciden');
+            }
+
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
             console.log(user);
@@ -34,7 +39,7 @@ const Signup = () => {
             <h2 tabIndex={0}>Registrarse</h2>
             <form>
                 <div className="form-group">
-                    <label htmlFor="email" tabIndex={0}>Dirección de correo electrónico:</label>
+                    <label htmlFor="email">Dirección de correo electrónico:</label>
                     <input
                         id="email"
                         type="email"
@@ -47,7 +52,7 @@ const Signup = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password" tabIndex={0}>Contraseña:</label>
+                    <label htmlFor="password">Contraseña:</label>
                     <input
                         id="password"
                         name="password"
@@ -56,6 +61,19 @@ const Signup = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                         placeholder="Contraseña"
+                        tabIndex={0}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password2">Confirmar contraseña:</label>
+                    <input
+                        id="password2"
+                        name="password2"
+                        type="password" 
+                        value={password2}
+                        onChange={(e) => setPassword2(e.target.value)}
+                        required
+                        placeholder="Confirmar contraseña"
                         tabIndex={0}
                     />
                 </div>

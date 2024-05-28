@@ -146,7 +146,8 @@ export const CourseProvider = ({ children }) => {
     createCourse,
     allCourses,
     fetchAllCourses,
-    addEnrolledCourse
+    addEnrolledCourse,
+    fetchEnrolledCourses
   };
 
   return (
