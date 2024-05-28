@@ -77,7 +77,7 @@ const NewCourseForm = () => {
       {loading ? (
         <div className="loading-screen">
           <div className="loading-animation" aria-label="Loading"></div>
-          <p>Creating course...</p>
+          <p>Creando Curso...</p>
         </div>
       ) : (
         <div>
@@ -90,8 +90,8 @@ const NewCourseForm = () => {
               <input name="topic" value={formData.topic} onChange={handleChange} />
             </label>
             <label tabIndex={0}>
-              <div class="tooltip">Experiencia:
-                <span class="tooltiptext">Experiencia se refiere a la competencia o familiaridad que tiene el usuario en el tema específico.</span>
+              <div className="tooltip">Experiencia:
+                <span role='tooltip' className="tooltiptext">Experiencia se refiere a la competencia o familiaridad que tiene el usuario en el tema específico.</span>
               </div>
               <select name="experience" value={formData.experience} onChange={handleChange} onKeyDown={(e) => handleKeyDown(e, 'experience', e.target.value)} tabIndex="0">
                 <option aria-label="Principiante" value="beginner">Principiante</option>
@@ -101,8 +101,8 @@ const NewCourseForm = () => {
               </select>
             </label>
             <label tabIndex={0}>
-              <div class="tooltip">Intensidad:
-                <span class="tooltiptext">La intensidad del curso se refiere a la cantidad de trabajo.</span>
+              <div className="tooltip">Intensidad:
+                <span role='tooltip' className="tooltiptext">La intensidad del curso se refiere a la cantidad de trabajo.</span>
               </div>
               <select name="intensity" value={formData.intensity} onChange={handleChange} onKeyDown={(e) => handleKeyDown(e, 'experience', e.target.value)} tabIndex="0">
                 <option aria-label="Relajado" value="relaxed">Relajado</option>

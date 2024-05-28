@@ -64,8 +64,8 @@ const Stage = () => {
         <button className='take-test-button' onClick={handleTakeTest} aria-label={"Hacer prueba"} tabIndex={0}>Hacer Prueba</button>
       ) : (
         <div>
-          <p className='error-text' tabIndex={0}>You must first enroll to this course to take the test.</p>
-          <button className='take-test-button-disabled' disabled tabIndex={0}>Take Test</button>
+          <p className='error-text' tabIndex={0}>Debes inscribirte al curso para poder acceder a las puebas</p>
+          <button className='take-test-button-disabled' disabled tabIndex={0}>Realizar Prueba</button>
         </div>
       )}
     </div>

@@ -19,6 +19,8 @@ const CourseList = () => {
 
   const { enrolledCourses, createdCourses } = useCourseContext();
 
+  console.log(enrolledCourses, createdCourses)
+
   return (
     <div className='course-list-page'>
       <div className='course-container'>
@@ -26,7 +28,9 @@ const CourseList = () => {
           <div className='course-list-header'>
             <h3 id='enrolled-courses-heading' tabIndex={0}>Tus cursos inscritos</h3>
             <Link to='/search-courses' aria-label='Search course to enroll' tabIndex={0}>
-              <FaPlus className='plus-icon' aria-hidden='true' />
+              <div className="tooltip"> <FaPlus className='plus-icon' aria-hidden='true' />
+                <span role='tooltip' className="tooltiptext">Buscar cursos existentes</span>
+              </div>            
             </Link>
           </div>
           <hr aria-hidden='true' />
@@ -73,7 +77,9 @@ const CourseList = () => {
           <div className='course-list-header'>
             <h3 id='created-courses-heading' tabIndex={0}>Tus cursos creados</h3>
             <Link to='/new-course' aria-label='Create new course' tabIndex={0}>
-              <FaPlus className='plus-icon' aria-hidden='true' />
+              <div className="tooltip"> <FaPlus className='plus-icon' aria-hidden='true' />
+                <span role='tooltip' className="tooltiptext">Generar un curso nuevo</span>
+              </div>
             </Link>
           </div>
           <hr aria-hidden='true' />

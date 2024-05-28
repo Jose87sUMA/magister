@@ -8,23 +8,30 @@ import '../styles/SearchPage.css';
 
 const SearchPage = () => {
   const navigate = useNavigate();
+  const [publicCourses, setPublicCourses] = useState([]); // [1]
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const { allCourses, fetchAllCourses } = useCourseContext();
 
-  useEffect(() => {
+  useEffect(() =>  {
+
+    async function fetchData(){
+      if (allCourses.length === 0) {
+        await fetchAllCourses();
+      }
+      setPublicCourses(allCourses.filter(course => course.courseJSON.isPublic));
+    } 
+
     onAuthStateChanged(auth, (user) => {
       if (!user) {
         navigate('/login');
       }
     });
 
-    if (allCourses.length === 0) {
-      fetchAllCourses();
-    }
+    fetchData()
+
   }, [navigate, allCourses, fetchAllCourses]);
 
-  const publicCourses = allCourses.filter(course => course.courseJSON.isPublic);
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);

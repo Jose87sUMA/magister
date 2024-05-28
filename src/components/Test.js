@@ -92,7 +92,7 @@ const Test = () => {
 
   return (
     <div>
-      <form className='form-test-container'>
+      <form className='form-test-container' action='post'>
         <div className="header-course">
           <button onClick={() => navigate(`/courses/${course.originalCourseID}`)} aria-label={"Volver"} tabIndex={0}>Volver</button>
         </div>
@@ -108,7 +108,7 @@ const Test = () => {
             ))}
           </div>
         ))}
-        <button type="submit" tabIndex={0}>Enviar</button>
+        <button onClick={evaluateSubmission} type="submit" tabIndex={0}>Enviar</button>
       </form>
     </div>
   );

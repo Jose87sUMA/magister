@@ -19,7 +19,7 @@ const Course = () => {
   const [enrolled, setEnrolled] = useState(true);
   const [course, setCourse] = useState(null);
 
-  const { createdCourses, enrolledCourses, allCourses, fetchAllCourses, updateCreatedCourse, addEnrolledCourse } = useCourseContext();
+  const { createdCourses, enrolledCourses, allCourses, fetchAllCourses, fetchEnrolledCourses, updateCreatedCourse, addEnrolledCourse } = useCourseContext();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -29,7 +29,7 @@ const Course = () => {
 
   useEffect(() => {
     let enrolledCourse = enrolledCourses.find(c => c.originalCourseID == courseID);
-    if (!enrolledCourse) setEnrolled(false);
+    setEnrolled(enrolledCourse);
   }, [enrolledCourses, courseID]);
 
   useEffect(() => {
@@ -52,18 +52,15 @@ const Course = () => {
     updateCreatedCourse(course);
   }
 
-  const enrollToCourse = async () => {
+  const enrollToCourse = async () => {  
     try {
       const docRef = await addDoc(collection(db, "enrolledCourses"), {
         courseString: JSON.stringify(course.courseJSON),
         userID: auth.currentUser.uid,
         originalCourseID: course.courseID
       });
-      course.originalCourseID = course.courseID;
-      course.courseID = docRef.id;
-      addEnrolledCourse(course);
+      addEnrolledCourse({ ...course, originalCourseID: course.courseID, courseID: docRef.id});
       setEnrolled(true);
-      setCourse(course);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -107,7 +104,8 @@ const Course = () => {
                 flexDirection: 'row',
                 marginBottom: '10px',
                 justifyContent: 'center',
-              }}>
+              }}
+              key={index}>
                 <div
                   key={index}
                   className='flag'

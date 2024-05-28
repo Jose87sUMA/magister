@@ -100,16 +100,21 @@ export const CourseProvider = ({ children }) => {
   };
 
   const updateCreatedCourse = async (course) => {
+    // if course being sent is the enrolled one, get the original course
+    const id = course.originalCourseID ? course.originalCourseID : course.courseID;
     setCreatedCourses(prevCourses => prevCourses.map(c => {
-      if (c.courseID === course.courseID) {
+      if (c.courseID === id) {
         return course;
       }
       return c;
     }));
     //update in firebase
-    await updateDoc(doc(db, "courses", course.courseID), {
+    await updateDoc(doc(db, "courses", id), {
       courseString: JSON.stringify(course.courseJSON)
     });
+    if(course.originalCourseID){
+      updateEnrolledCourse(course)
+    }
   };
 
   const updateStage = (course, stage) => {
