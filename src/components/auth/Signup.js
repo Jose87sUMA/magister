@@ -77,8 +77,8 @@ const Signup = () => {
                         tabIndex={0}
                     />
                 </div>
-                {errorMessage && <p className="error-message" tabIndex={0}>{errorMessage}</p>}
-                <button role='button' type="submit" onClick={onSubmit} tabIndex={0}>Registrarse</button>
+                {errorMessage && <p id='error-registro' className="error-message" tabIndex={0} role="alert">{errorMessage}</p>}
+                <button aria-errormessage='error-registro' role='button' type="submit" onClick={onSubmit} tabIndex={0}>Registrarse</button>
             </form>
             <p className='form-p' tabIndex={0}>¿Ya tienes cuenta?</p>
             <Link to="/login">Iniciar Sesión</Link>

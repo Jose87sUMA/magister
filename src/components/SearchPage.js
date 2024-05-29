@@ -51,6 +51,7 @@ const SearchPage = () => {
       <form className="search-form" onSubmit={handleSearchSubmit}>
         <label htmlFor="search-input" className="visually-hidden">Buscar cursos</label>
         <input
+          role="searchbox"
           id="search-input"
           type="text"
           value={searchQuery}

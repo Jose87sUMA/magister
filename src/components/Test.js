@@ -102,7 +102,7 @@ const Test = () => {
             <label id={`question${index}`} tabIndex={0}>{question.question}</label>
             {question.answers.map((answer, i) => (
               <div key={i} onKeyPress={(e) => handleKeyPress(e, index, i)}>
-                <input  type="radio" id={`answer${index}-${i}`} name={`question${index}`} value={i} className="radio-custom" />
+                <input role="radio" type="radio" id={`answer${index}-${i}`} name={`question${index}`} value={i} className="radio-custom" />
                 <label tabIndex={0} htmlFor={`answer${index}-${i}`} className="radio-label">{answer}</label>
               </div>
             ))}
