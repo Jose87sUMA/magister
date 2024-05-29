@@ -8,17 +8,7 @@
     border-radius: 5px;
     background-color: #f9f9f9;
   }
-  
-  .header-course {
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: 20px;
-  }
 
-  .header-course a {
-    width: fit-content;
-  }
-  
   .header-course button:hover {
     background-color: #002C5C;
   }
@@ -70,7 +60,7 @@
   .form-test-container button {
     display: block;
     width: 100%;
-    max-width: 200px;
+    max-width: 20%;
     margin: 20px auto;
     padding: 10px;
     background-color: #004FA3;
@@ -78,6 +68,11 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+  }
+
+    
+  .form-test-container .header-course button {
+    margin-left: 0px;
   }
   
   .form-test-container button:hover {

@@ -2,7 +2,6 @@
 .header-form {
   max-width: 400px;
   margin: 0 auto;
-  margin-top: 100px;
 }
 
 .header-form button {
@@ -17,6 +16,15 @@
 
 .header-form button:hover {
   background-color: #002C5C;
+}
+
+.new-course-form {
+  width: fit-content;
+  height: fit-content;
+  padding: 25px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 100px auto; /* Add this line */
 }
 
  /* Tooltip container */

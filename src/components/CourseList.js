@@ -11,11 +11,13 @@ const CourseList = () => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
+      console.log(user)
       if (!user) {
         navigate('/login');
       }
     });
-  }, [navigate]);
+
+  }, [navigate, auth]);
 
   const { enrolledCourses, createdCourses } = useCourseContext();
 
@@ -26,10 +28,10 @@ const CourseList = () => {
       <div className='course-container'>
         <div className='course-list'>
           <div className='course-list-header'>
-            <h3 id='enrolled-courses-heading' tabIndex={0}>Tus cursos inscritos</h3>
-            <Link to='/search-courses' aria-label='Search course to enroll' tabIndex={0}>
+            <h2 tabIndex={0}>Tus cursos inscritos</h2>
+            <Link to='/search-courses' aria-label='Buscar cursos públicos' tabIndex={0}>
               <div className="tooltip"> <FaPlus className='plus-icon' aria-hidden='true' />
-                <span role='tooltip' className="tooltiptext">Buscar cursos existentes</span>
+                <span role='tooltip' className="tooltiptext">Buscar cursos públicos</span>
               </div>            
             </Link>
           </div>
@@ -37,14 +39,15 @@ const CourseList = () => {
           {enrolledCourses.map((course, index) => (
             course.courseJSON.visible && (
               <div key={index} className='course-item'>
-                <p className='course-title' tabIndex={0}>{course.courseJSON.title}</p>
                 <div>
+                  <h3 id={`enrolled-course-${course.courseID}}`} className='course-title' tabIndex={0}>{course.courseJSON.title}</h3>
                   <p tabIndex={0}>{course.courseJSON.description}</p>
                   <div className='course-item-footer'>
                     <p style={{minWidth: "90px"}} tabIndex={0}>Etapas: {course.courseJSON.stages.length}</p>
                     <button
+                      role='button' 
                       className='course-link'
-                      aria-label={`Acceder a ${course.name}`}
+                      aria-label={`Acceder a ${course.courseJSON.title}`}
                       onClick={() => navigate(`/courses/${course.originalCourseID}`)}
                       tabIndex={0}>Acceder</button>
                   </div>
@@ -61,7 +64,7 @@ const CourseList = () => {
                     aria-valuenow={course.courseJSON.completionPercentage}
                     aria-valuemin='0'
                     aria-valuemax='100'
-                    aria-labelledby='enrolled-courses-heading'
+                    aria-labelledby={`enrolled-course-${course.courseID}}`}
                     tabIndex={0}
                   />
                   <hr aria-hidden='true' />
@@ -75,8 +78,8 @@ const CourseList = () => {
       <div className='course-container'>
         <div className='course-list'>
           <div className='course-list-header'>
-            <h3 id='created-courses-heading' tabIndex={0}>Tus cursos creados</h3>
-            <Link to='/new-course' aria-label='Create new course' tabIndex={0}>
+            <h2 id='created-courses-heading' tabIndex={0}>Tus cursos creados</h2>
+            <Link to='/new-course' aria-label='Crear un curso nuevo' tabIndex={0}>
               <div className="tooltip"> <FaPlus className='plus-icon' aria-hidden='true' />
                 <span role='tooltip' className="tooltiptext">Generar un curso nuevo</span>
               </div>
@@ -86,14 +89,15 @@ const CourseList = () => {
           {createdCourses.map((course, index) => (
             course.courseJSON.visible && (
               <div key={index} className='course-item'>
-                <p className='course-title' tabIndex={0}>{course.courseJSON.title}</p>
+                <h3 className='course-title' tabIndex={0}>{course.courseJSON.title}</h3>
                 <div>
                   <p tabIndex={0}>{course.courseJSON.description}</p>
                   <div className='course-item-footer'>
                     <p style={{minWidth: "90px"}} tabIndex={0}>Etapas: {course.courseJSON.stages.length}</p>
                       <button
+                        role='button' 
                         className='course-link'
-                        aria-label={`Acceder a ${course.name}`}
+                        aria-label={`Acceder a ${course.courseJSON.title}`}
                         onClick={() => navigate(`/courses/${course.courseID}`)}
                         tabIndex={0}>Acceder</button>
                   </div>

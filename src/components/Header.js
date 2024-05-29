@@ -49,6 +49,7 @@ const Header = () => {
           <li><Link to="/search-courses" aria-label="Buscar cursos">Buscar cursos</Link></li>
           <li className="logout">
             <button
+              role='button' 
               aria-label="Cerrar Sesión"
               onClick={handleLogout}
             >

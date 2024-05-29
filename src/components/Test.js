@@ -64,7 +64,7 @@ const Test = () => {
   
       setIsSubmitted(true);
       // TODO: ADD A MESSAGE TO SHOW THE USER THE SCORE
-      alert(`Test evaluated! You scored ${scorePercentage}%`)
+      alert(`Prueba evaluada! Has obtenido ${scorePercentage}%`)
     } catch (error) {
       console.error("Error submitting answers:", error);
       // Handle any errors here
@@ -94,21 +94,21 @@ const Test = () => {
     <div>
       <form className='form-test-container' action='post'>
         <div className="header-course">
-          <button onClick={() => navigate(`/courses/${course.originalCourseID}`)} aria-label={"Volver"} tabIndex={0}>Volver</button>
+          <button role='button' onClick={() => navigate(`/courses/${course.originalCourseID}`)} aria-label={"Volver"} tabIndex={0}>Volver</button>
         </div>
-        <h3 tabIndex={0}>{stage.title}</h3>
+        <h1 tabIndex={0}>{"Prueba de " + stage.title}</h1>
         {questions.map((question, index) => (
           <div key={index} className="question-container">
             <label id={`question${index}`} tabIndex={0}>{question.question}</label>
             {question.answers.map((answer, i) => (
-              <div tabIndex={0} key={i} onKeyPress={(e) => handleKeyPress(e, index, i)}>
-                <input type="radio" id={`answer${index}-${i}`} name={`question${index}`} value={i} className="radio-custom" />
-                <label htmlFor={`answer${index}-${i}`} className="radio-label">{answer}</label>
+              <div key={i} onKeyPress={(e) => handleKeyPress(e, index, i)}>
+                <input  type="radio" id={`answer${index}-${i}`} name={`question${index}`} value={i} className="radio-custom" />
+                <label tabIndex={0} htmlFor={`answer${index}-${i}`} className="radio-label">{answer}</label>
               </div>
             ))}
           </div>
         ))}
-        <button onClick={evaluateSubmission} type="submit" tabIndex={0}>Enviar</button>
+        <button role='button' onClick={evaluateSubmission} type="submit" tabIndex={0}>Enviar</button>
       </form>
     </div>
   );

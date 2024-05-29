@@ -10,23 +10,25 @@ const CourseContext = createContext();
 // Create a provider component
 export const CourseProvider = ({ children }) => {
 
-  
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const [createdCourses, setCreatedCourses] = useState([]);
   const [allCourses, setAllCourses] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        fetchEnrolledCourses();
-        fetchCreatedCourses();
+        setUser(user); // Update user state
+        await fetchEnrolledCourses(user.uid); // Pass user ID directly
+        await fetchCreatedCourses(user.uid);
       } else {
+        setUser(null);
         setEnrolledCourses([]);
         setCreatedCourses([]);
       }
     });
     return () => unsubscribe();
-  }, [auth.currentUser]);
+  }, []);
 
   /*
     On firestore db:
@@ -34,38 +36,34 @@ export const CourseProvider = ({ children }) => {
     enrolledCourses: collection of enrolled courses. It has 3 fields: courseID, originalCourseID and userID
   */
 
-  //get courses from db from course ids of enrolled courses
-  const fetchEnrolledCourses = async () => {
-    // Get courses from local storage, or use default if not present
-    const querySnapshot = await getDocs(query(collection(db, "enrolledCourses"), where("userID", "==", auth.currentUser.uid)))
+  // get courses from db from course ids of enrolled courses
+  const fetchEnrolledCourses = async (userId) => {
+    const querySnapshot = await getDocs(query(collection(db, "enrolledCourses"), where("userID", "==", userId)));
     if (querySnapshot.empty) {
       setEnrolledCourses([]);
       return;
     }
-    const enrolledCoursesTemp = querySnapshot.docs.map((doc) => ({...doc.data(), courseJSON: JSON.parse(doc.data().courseString), courseID: doc.id}));       
+    const enrolledCoursesTemp = querySnapshot.docs.map((doc) => ({...doc.data(), courseJSON: JSON.parse(doc.data().courseString), courseID: doc.id}));
     setEnrolledCourses(enrolledCoursesTemp);
-  }
+  };
 
-  const fetchCreatedCourses = async () => {
-    // Get courses from local storage, or use default if not present
-    const querySnapshot = await getDocs(query(collection(db, "courses"), where("userID", "==", auth.currentUser.uid)))
+  const fetchCreatedCourses = async (userId) => {
+    const querySnapshot = await getDocs(query(collection(db, "courses"), where("userID", "==", userId)));
     if (querySnapshot.empty) {
-      setEnrolledCourses([]);
+      setCreatedCourses([]);
       return;
     }
-    const createdCoursesTemp = querySnapshot.docs.map((doc) => ({...doc.data(), courseJSON: JSON.parse(doc.data().courseString), courseID: doc.id}));       
+    const createdCoursesTemp = querySnapshot.docs.map((doc) => ({...doc.data(), courseJSON: JSON.parse(doc.data().courseString), courseID: doc.id}));
     setCreatedCourses(createdCoursesTemp);
-  }
+  };
 
   const fetchAllCourses = async () => {
-
-    // Get courses from local storage, or use default if not present
-    const querySnapshot = await getDocs(collection(db, "courses"))
+    const querySnapshot = await getDocs(collection(db, "courses"));
     if (querySnapshot.empty) {
       setAllCourses([]);
       return;
     }
-    const allCoursesTemp = querySnapshot.docs.map((doc) => ({...doc.data(), courseJSON: JSON.parse(doc.data().courseString), courseID: doc.id}));       
+    const allCoursesTemp = querySnapshot.docs.map((doc) => ({...doc.data(), courseJSON: JSON.parse(doc.data().courseString), courseID: doc.id}));
     setAllCourses(allCoursesTemp);
   };
 
@@ -141,10 +139,11 @@ export const CourseProvider = ({ children }) => {
     setEnrolledCourses(prevCourses => [...prevCourses, course]);
   };
 
+  console.log(enrolledCourses)
   // Wrap the functions to be passed down through context
   const contextValue = {
-    enrolledCourses: enrolledCourses,
-    createdCourses: createdCourses,
+    enrolledCourses,
+    createdCourses,
     updateEnrolledCourse,
     updateCreatedCourse,
     updateStage,
@@ -152,7 +151,6 @@ export const CourseProvider = ({ children }) => {
     allCourses,
     fetchAllCourses,
     addEnrolledCourse,
-    fetchEnrolledCourses
   };
 
   return (

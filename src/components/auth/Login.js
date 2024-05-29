@@ -59,9 +59,9 @@ const Login = () => {
                     />
                 </div>
                 {errorMessage && <p className="error-message" tabIndex={0}>{errorMessage}</p>}
-                <button type="submit" onClick={onLogin} tabIndex={0}>Iniciar Sesión</button>
+                <button role='button' type="submit" onClick={onLogin} tabIndex={0}>Iniciar Sesión</button>
             </form>
-            <p className='form-p' tabIndex={0}>¿No tienes cuenta? <Link to="/signup" tabIndex={0}>Registrarse</Link></p>
+            <p className='form-p' tabIndex={0}>¿No tienes cuenta?</p> <Link to="/signup" tabIndex={0}>Registrarse</Link>
         </div>
     );
 };

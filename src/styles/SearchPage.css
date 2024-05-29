@@ -9,7 +9,7 @@
   background-color: #f9f9f9;
 }
 
-.search-container h2 {
+.search-container h1 {
   text-align: center;
   margin-bottom: 20px;
 }
@@ -30,7 +30,7 @@
 
 .search-form button {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #004FA3;
   color: #fff;
   border: none;
   border-radius: 5px;

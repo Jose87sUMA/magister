@@ -55,17 +55,17 @@ const Stage = () => {
   return (
     <div className='course-details'>
       <div className="stage-header">
-        <button onClick={() => navigate(`/courses/${enrolled ? course.originalCourseID : course.courseID}`)} aria-label={"Volver"} tabIndex={0}>Volver</button>
+        <button role='button' onClick={() => navigate(`/courses/${enrolled ? course.originalCourseID : course.courseID}`)} aria-label={"Volver"} tabIndex={0}>Volver</button>
       </div>
-      <h3 tabIndex={0}>{stage.title}</h3>
-      <h5 tabIndex={0}>{stage.description}</h5>
+      <h1 tabIndex={0}>{stage.title}</h1>
+      <h2 tabIndex={0}>{stage.description}</h2>
       <p tabIndex={0}>{stage.content}</p>
       {enrolled ? (
-        <button className='take-test-button' onClick={handleTakeTest} aria-label={"Hacer prueba"} tabIndex={0}>Hacer Prueba</button>
+        <button role='button' className='take-test-button' onClick={handleTakeTest} aria-label={"Hacer prueba"} tabIndex={0}>Hacer Prueba</button>
       ) : (
         <div>
-          <p className='error-text' tabIndex={0}>Debes inscribirte al curso para poder acceder a las puebas</p>
-          <button className='take-test-button-disabled' disabled tabIndex={0}>Realizar Prueba</button>
+          <p className='error-text' tabIndex={0}>Debes inscribirte al curso para poder acceder a las pruebas</p>
+          <button role='button' className='take-test-button-disabled' disabled tabIndex={0}>Realizar Prueba</button>
         </div>
       )}
     </div>

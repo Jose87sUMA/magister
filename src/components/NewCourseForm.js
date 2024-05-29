@@ -54,11 +54,11 @@ const NewCourseForm = () => {
       await storeCourse(course);
       navigate('/');
     } catch (error) {
-      console.error("Error generating or storing course: ", error);
-      alert("Error creating course. Please try again.")
+      console.error("Error generando o guardando curso: ", error);
+      alert("Error creando curso. Por favor inténtelo de nuevo.")
     } finally {
       setLoading(false);
-      alert("Course created successfully!")
+      alert("Curso creado exitosamente!")
     }
   };
 
@@ -73,25 +73,26 @@ const NewCourseForm = () => {
   };
 
   return (
-    <div>
+    <div className='new-course-form'>
       {loading ? (
         <div className="loading-screen">
-          <div className="loading-animation" aria-label="Loading"></div>
+          <div className="loading-animation" aria-label="Creando Curso" role="status" aria-live="assertive"></div>
           <p>Creando Curso...</p>
         </div>
       ) : (
         <div>
           <div className="header-form">
-            <button onClick={() => navigate("/")} aria-label={"Volver"}>Volver</button>
+            <button role='button' onClick={() => navigate("/")} aria-label={"Volver"}>Volver</button>
           </div>
           <form className='form-container' onSubmit={handleSubmit}>
-            <label tabIndex={0}>
-              Tema:
-              <input name="topic" value={formData.topic} onChange={handleChange} />
+            <label>
+              <p>Tema:</p>
+              <input autoComplete='off'  name="topic" value={formData.topic} onChange={handleChange} style={{width: '90%'} } required/>
             </label>
-            <label tabIndex={0}>
-              <div className="tooltip">Experiencia:
-                <span role='tooltip' className="tooltiptext">Experiencia se refiere a la competencia o familiaridad que tiene el usuario en el tema específico.</span>
+            <label>
+              <div className="tooltip">
+                <p aria-labelledby='experience-hint'>Experiencia:</p>
+                <span id='experience-hint' role='tooltip' className="tooltiptext" tabIndex={0}>Experiencia se refiere a la competencia o familiaridad que tiene el usuario en el tema específico.</span>
               </div>
               <select name="experience" value={formData.experience} onChange={handleChange} onKeyDown={(e) => handleKeyDown(e, 'experience', e.target.value)} tabIndex="0">
                 <option aria-label="Principiante" value="beginner">Principiante</option>
@@ -100,9 +101,10 @@ const NewCourseForm = () => {
                 <option aria-label="Experto/a" value="expert">Experto/a</option>
               </select>
             </label>
-            <label tabIndex={0}>
-              <div className="tooltip">Intensidad:
-                <span role='tooltip' className="tooltiptext">La intensidad del curso se refiere a la cantidad de trabajo.</span>
+            <label>
+              <div className="tooltip">
+                <p aria-labelledby='intensity-hint'>Intensidad:</p>
+                <span id='intensity-hint' role='tooltip' className="tooltiptext">La intensidad del curso se refiere a la cantidad de trabajo.</span>
               </div>
               <select name="intensity" value={formData.intensity} onChange={handleChange} onKeyDown={(e) => handleKeyDown(e, 'experience', e.target.value)} tabIndex="0">
                 <option aria-label="Relajado" value="relaxed">Relajado</option>
@@ -110,7 +112,7 @@ const NewCourseForm = () => {
                 <option aria-label="Intensivo" value="intensive">Intensivo</option>
               </select>
             </label>
-            <button type="submit" aria-label="Generar curso">Generar Curso</button>
+            <button role='button' type="submit" aria-label="Generar curso">Generar Curso</button>
           </form>
         </div>
       )}

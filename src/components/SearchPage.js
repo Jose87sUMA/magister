@@ -47,9 +47,9 @@ const SearchPage = () => {
 
   return (
     <div className="search-container">
-      <h2 tabIndex={0}>Buscar Cursos</h2>
+      <h1 tabIndex={0}>Buscar Cursos</h1>
       <form className="search-form" onSubmit={handleSearchSubmit}>
-        <label htmlFor="search-input" className="visually-hidden" tabIndex={0}>Search Courses</label>
+        <label htmlFor="search-input" className="visually-hidden">Buscar cursos</label>
         <input
           id="search-input"
           type="text"
@@ -59,12 +59,12 @@ const SearchPage = () => {
           aria-label="Introduzca el término de búsqueda"
           tabIndex={0}
         />
-        <button type="submit" tabIndex={0}>Buscar</button>
+        <button role='button' type="submit" tabIndex={0}>Buscar</button>
       </form>
       <div className="search-results" aria-live="polite">
         {searchResults.map((course, index) => (
           <div className="course" key={index}>
-            <h3 tabIndex={0}>{course.courseJSON.title}</h3>
+            <h2 tabIndex={0}>{course.courseJSON.title}</h2>
             <p tabIndex={0}>{course.courseJSON.description}</p>
             <Link to={`/courses/${course.courseID}`} className="course-link" tabIndex={0}>Ver Curso</Link>
           </div>

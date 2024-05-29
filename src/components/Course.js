@@ -78,10 +78,10 @@ const Course = () => {
   return (
     <div className='course-details'>
       <div className="course-header">
-        <button onClick={() => navigate("/")} aria-label={"Volver"}>Volver</button>
+        <button role='button' onClick={() => navigate("/")} aria-label={"Volver"}>Volver</button>
         {createdCourses.find(c => c.courseID == courseID) && (
           !course.courseJSON.isPublic ? (
-            <button className='make-public-button' onClick={makeCoursePublic} tabIndex={0}>Hacer Público</button>
+            <button role='button' className='make-public-button' onClick={makeCoursePublic} tabIndex={0}>Hacer Público</button>
           ) : (
             <p className='course-public-text' tabIndex={0}>Este curso es público</p>
           )
@@ -90,9 +90,9 @@ const Course = () => {
       <h1 tabIndex={0}>{course.courseJSON.title}</h1>
       <p tabIndex={0}>{course.courseJSON.description}</p>
       {enrolled ? (
-        <p tabIndex={0}>{`Porcentaje Completado: ${course.courseJSON.completionPercentage}%`}</p>
+        <p tabIndex={0}>{`Porcentaje Completado: ${course.courseJSON.completionPercentage.toFixed(0)}%`}</p>
       ) : (
-        <button className='enroll-button' onClick={enrollToCourse} tabIndex={0}>Inscribirse</button>
+        <button role='button' className='enroll-button' onClick={enrollToCourse} tabIndex={0}>Inscribirse</button>
       )}
       <div className="map">
         <h2 tabIndex={0}>Mapa del Curso</h2>
@@ -151,6 +151,7 @@ const Course = () => {
                       marginTop: 'auto',
                       marginBottom: '5px'
                     }}
+                    role='button'
                     aria-label={`Acceder a ${stage.title}`}
                     onClick={() => navigate(`/courses/${enrolled ? course.originalCourseID : course.courseID}/${stage.id}`)}
                     tabIndex={0}>
