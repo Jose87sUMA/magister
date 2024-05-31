@@ -13,13 +13,6 @@
     background-color: #002C5C;
   }
   
-  .error-message {
-    color: red;
-    font-size: 18px;
-    text-align: center;
-    margin: 20px;
-  }
-  
   label {
     display: block;
     margin-bottom: 10px;

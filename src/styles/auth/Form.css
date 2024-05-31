@@ -5,26 +5,22 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     margin: auto;
-    margin-top: 5%;
+    margin-top: 3%;
   }
   
   .form-group {
-    margin-bottom: 15px;
     padding: 10px 20px;
 
   }
   
-  .form-group label {
-    margin-bottom: 5px;
-  }
-  
+
   .form-group input {
     padding: 10px 20px;
     width: 87%;
 
   }
   
-  button {
+  .authentication-button {
     padding: 10px 20px;
     width: 100%;
     background-color: #004FA3;
@@ -32,6 +28,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 5% 0;
   }
   
   button:hover {
@@ -53,8 +50,8 @@
 
   .auth-form-container .error-message {
     color: red;
-    font-size: 18px;
-    margin-top: 10px;
+    font-size: 16px;
     text-align: center;
+    margin: 2%;
   }
   

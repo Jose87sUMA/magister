@@ -27,9 +27,28 @@ const Signup = () => {
             console.log(user);
             navigate('/');
         } catch (error) {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
+            const errorCode = error.code ? error.code : error.message
+            let errorMessage = '';
+            console.error(error.code);
+
+            switch (errorCode) {
+                case 'auth/invalid-email':
+                    errorMessage = 'Dirección de correo electrónico inválida';
+                    break;
+                case 'auth/email-already-in-use':
+                    errorMessage = 'La dirección de correo electrónico ya está en uso';
+                    break;
+                case 'auth/weak-password':
+                    errorMessage = 'La contraseña es demasiado débil';
+                    break;
+                case 'Las contraseñas no coinciden':
+                    errorMessage = 'Las contraseñas no coinciden';
+                    break;
+                default:
+                    errorMessage = 'Ha ocurrido un error al registrarse';
+                    break;
+            }
+
             setErrorMessage(errorMessage);
         }
     };
@@ -63,6 +82,11 @@ const Signup = () => {
                         placeholder="Contraseña"
                         tabIndex={0}
                     />
+                    {password.length < 6 && (
+                        <p className="error-message" tabIndex={0} role="alert">
+                            La contraseña debe tener al menos 6 caracteres
+                        </p>
+                    )}
                 </div>
                 <div className="form-group">
                     <label htmlFor="password2">Confirmar contraseña:</label>
@@ -77,8 +101,8 @@ const Signup = () => {
                         tabIndex={0}
                     />
                 </div>
+                <button className='authentication-button' aria-errormessage='error-registro' role='button' type="submit" onClick={onSubmit} tabIndex={0}>Registrarse</button>
                 {errorMessage && <p id='error-registro' className="error-message" tabIndex={0} role="alert">{errorMessage}</p>}
-                <button aria-errormessage='error-registro' role='button' type="submit" onClick={onSubmit} tabIndex={0}>Registrarse</button>
             </form>
             <p className='form-p' tabIndex={0}>¿Ya tienes cuenta?</p>
             <Link to="/login">Iniciar Sesión</Link>

@@ -19,12 +19,12 @@
 }
 
 .new-course-form {
-  width: fit-content;
+  width: 30%;
   height: fit-content;
   padding: 25px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin: 100px auto; /* Add this line */
+  margin: 4% auto; /* Add this line */
 }
 
  /* Tooltip container */
@@ -62,6 +62,7 @@
      top: 100%;
      left: 50%;
      margin-left: -5px;
+     border-bottom: 1px dotted black;
      border-width: 5px;
      border-style: solid;
      border-color: #555 transparent transparent transparent;
@@ -110,29 +111,6 @@
 .form-container label {
   display: block;
   margin-bottom: 10px;
-}
-
-.form-container input,
-.form-container select {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.form-container button {
-  width: 100%;
-  padding: 10px;
-  background-color: #004FA3;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.form-container button:hover {
-  background-color: #002C5C;
 }
 
 .loading-screen {

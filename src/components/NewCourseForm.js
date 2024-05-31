@@ -87,7 +87,7 @@ const NewCourseForm = () => {
           <form className='form-container' onSubmit={handleSubmit}>
             <label>
               <p>Tema:</p>
-              <input autoComplete='off'  name="topic" value={formData.topic} onChange={handleChange} style={{width: '90%'} } required/>
+              <input autoComplete='off'  name="topic" value={formData.topic} onChange={handleChange} style={{width: '96%'} } required/>
             </label>
             <label>
               <div className="tooltip">

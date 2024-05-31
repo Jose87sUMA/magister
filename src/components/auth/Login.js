@@ -23,7 +23,19 @@ const Login = () => {
         })
         .catch((error) => {
             const errorCode = error.code;
-            const errorMessage = error.message;
+            let errorMessage = '';
+
+            switch (errorCode) {
+                case 'auth/invalid-credential':
+                    errorMessage = 'Credenciales no válidos';
+                    break;
+                case 'auth/invalid-email':
+                    errorMessage = 'Dirección de correo electrónico inválida';
+                    break;
+                default:
+                    errorMessage = 'Ha ocurrido un error al registrarse';
+                    break;
+            }
             console.log(errorCode, errorMessage)
             setErrorMessage(errorMessage);
         });
@@ -58,8 +70,8 @@ const Login = () => {
                         tabIndex={0}
                     />
                 </div>
+                <button className='authentication-button' role='button' type="submit" onClick={onLogin} tabIndex={0}>Iniciar Sesión</button>
                 {errorMessage && <p className="error-message" tabIndex={0}>{errorMessage}</p>}
-                <button role='button' type="submit" onClick={onLogin} tabIndex={0}>Iniciar Sesión</button>
             </form>
             <p className='form-p' tabIndex={0}>¿No tienes cuenta?</p> <Link to="/signup" tabIndex={0}>Registrarse</Link>
         </div>
