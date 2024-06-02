@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useCourseContext } from '../CourseContext';
-import { FaPlus } from 'react-icons/fa';
+import {FaPlus, FaSearch} from 'react-icons/fa';
 import '../styles/CourseList.css';
 
 const CourseList = () => {
@@ -30,7 +30,7 @@ const CourseList = () => {
           <div className='course-list-header'>
             <h2 tabIndex={0}>Tus cursos inscritos</h2>
             <Link to='/search-courses' aria-label='Buscar cursos públicos' tabIndex={0}>
-              <div className="tooltip"> <FaPlus className='plus-icon' aria-hidden='true' />
+              <div className="tooltip"> <FaSearch className='plus-icon' aria-hidden='true' />
                 <span role='tooltip' className="tooltiptext">Buscar cursos públicos</span>
               </div>            
             </Link>
