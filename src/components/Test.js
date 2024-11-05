@@ -3,6 +3,7 @@ import { useLoaderData, useNavigate, Link } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useCourseContext} from '../CourseContext'; // Import the context hook
+import Modal from 'react-modal';
 import '../styles/Test.css';
 
 const Test = () => {
@@ -20,6 +21,7 @@ const Test = () => {
   const { courseID, stageID } = useLoaderData();
   const { enrolledCourses, updateStage  } = useCourseContext(); // Use the context hook
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [scorePercentage, setScorePercentage] = useState(0);
 
   console.log(enrolledCourses);
   console.log(courseID);
@@ -63,8 +65,7 @@ const Test = () => {
       updateStage(course, updatedStage);
   
       setIsSubmitted(true);
-      // TODO: ADD A MESSAGE TO SHOW THE USER THE SCORE
-      alert(`Prueba evaluada! Has obtenido ${scorePercentage}%`)
+      setScorePercentage(scorePercentage);
     } catch (error) {
       console.error("Error submitting answers:", error);
       // Handle any errors here
@@ -79,15 +80,6 @@ const Test = () => {
         radio.checked = true;
       }
     }
-  }
-
-
-  if (isSubmitted) {
-    // Defer navigation after the component has finished rendering
-    setTimeout(() => {
-      navigate(`/courses/${course.originalCourseID}`);
-    }, 0);  
-    return null;
   }
 
   return (
@@ -110,6 +102,16 @@ const Test = () => {
         ))}
         <button role='button' onClick={evaluateSubmission} type="submit" tabIndex={0}>Enviar</button>
       </form>
+      <Modal
+          isOpen={isSubmitted}
+          onRequestClose={() => setIsSubmitted(false)}
+          contentLabel="Resultado de la prueba"
+          ariaHideApp={false}
+          className="modal"
+      >
+          <h2>Prueba evaluada! Has obtenido {scorePercentage}%</h2>
+          <button className='modal-button' role='button' onClick={() => navigate(`/courses/${course.originalCourseID}`)} tabIndex={0}>Aceptar</button>
+      </Modal>
     </div>
   );
 };

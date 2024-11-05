@@ -44,7 +44,7 @@ const Login = () => {
 
     return (
         <div className="auth-form-container">
-            <h2 tabIndex={0}>Iniciar Sesión</h2>
+            <h1 tabIndex={0}>Iniciar Sesión</h1>
             <form>
                 <div className="form-group">
                     <label htmlFor="email">Dirección de correo electrónico:</label>

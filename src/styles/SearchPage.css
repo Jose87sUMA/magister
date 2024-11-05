@@ -1,7 +1,7 @@
 /* SearchPage.css */
 
 .search-container {
-  width: 60%;
+  width: 80%;
   margin: 5% auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -34,7 +34,7 @@
   color: #fff;
   border: none;
   border-radius: 5px;
-  width: 20%;;
+  width: fit-content;
   cursor: pointer;
 }
 

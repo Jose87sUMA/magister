@@ -4,6 +4,7 @@ import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useCourseContext } from '../CourseContext';
+import Modal from 'react-modal';
 import '../styles/Stage.css';
 
 export async function loader({ params }) {
@@ -18,12 +19,7 @@ const Stage = () => {
   const [enrolled, setEnrolled] = useState(true);
   const [course, setCourse] = useState(null);
   const [stage, setStage] = useState(null);
-
-  const handleTakeTest = () => {
-    if (window.confirm("¿Estás seguro de que quieres iniciar la prueba?")) {
-      navigate(`/courses/${course.originalCourseID}/${stage.id}/test`);
-    }
-  }
+  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -42,6 +38,10 @@ const Stage = () => {
     setCourse(course);
     setStage(course.courseJSON.stages.find(s => s.id == stageID));
   }, [enrolledCourses, course, allCourses, stageID]);
+
+  const handleTakeTest = () => {
+    setModalOpen(true);
+  };
 
   if (!allCourses.length) {
     fetchAllCourses();
@@ -68,6 +68,17 @@ const Stage = () => {
           <button role='button' className='take-test-button-disabled' disabled tabIndex={0}>Realizar Prueba</button>
         </div>
       )}
+      <Modal
+          isOpen={isModalOpen}
+          onRequestClose={() => setModalOpen(false)}
+          contentLabel="Confirmación de prueba"
+          ariaHideApp={false}
+          className="modal"
+      >
+          <h2>¿Estás seguro de que quieres realizar la prueba?</h2>
+          <button className='modal-button' role='button' onClick={() => navigate(`/courses/${course.originalCourseID}/${stage.id}/test`)} tabIndex={0}>Hacer Prueba</button>
+          <button className='modal-button' role='button' onClick={() => setModalOpen(false)} tabIndex={0}>Cerrar</button>          
+      </Modal>
     </div>
   );
 };

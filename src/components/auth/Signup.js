@@ -55,7 +55,7 @@ const Signup = () => {
 
     return (
         <div className="auth-form-container">
-            <h2 tabIndex={0}>Registrarse</h2>
+            <h1 tabIndex={0}>Registrarse</h1>
             <form>
                 <div className="form-group">
                     <label htmlFor="email">Dirección de correo electrónico:</label>

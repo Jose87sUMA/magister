@@ -30,7 +30,8 @@ const CourseList = () => {
           <div className='course-list-header'>
             <h2 tabIndex={0}>Tus cursos inscritos</h2>
             <Link to='/search-courses' aria-label='Buscar cursos públicos' tabIndex={0}>
-              <div className="tooltip"> <FaSearch className='plus-icon' aria-hidden='true' />
+              <div className="tooltip"> 
+                <FaSearch className='plus-icon' aria-hidden='true' />
                 <span role='tooltip' className="tooltiptext">Buscar cursos públicos</span>
               </div>            
             </Link>
